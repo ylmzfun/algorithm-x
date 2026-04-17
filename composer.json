@@ -1,0 +1,42 @@
+{
+    "name": "php-algorithm/data-structures",
+    "description": "PHP implementation of common data structures with detailed explanations and business use cases",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Developer",
+            "email": "developer@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DataStructures\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DataStructures\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit tests/",
+        "test-coverage": "phpunit --coverage-html coverage tests/",
+        "test-performance": "php tests/PerformanceTest.php",
+        "demo": "php examples/ComprehensiveAlgorithmsDemo.php",
+        "basic-demo": "php examples/HashAndAdvancedExample.php",
+        "algorithms-demo": "php examples/AlgorithmsDemo.php",
+        "benchmark": "php tools/benchmark.php",
+        "benchmark-json": "php tools/benchmark.php json",
+        "generate-help": "php tools/generator.php help",
+        "validate-config": "php -r \"require 'config/config.php'; use DataStructures\\\\Config\\\\Config; \\$errors = Config::validate(); if(empty(\\$errors)) echo 'Configuration is valid'; else { echo 'Configuration errors:'; foreach(\\$errors as \\$error) echo PHP_EOL . '- ' . \\$error; }\""
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
