@@ -1,0 +1,15 @@
+{
+  "name": "algorithm-ts",
+  "version": "1.0.0",
+  "description": "用 TypeScript 学习和实现经典算法与数据结构",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
