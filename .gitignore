@@ -1,0 +1,33 @@
+# Build
+build/
+cmake-build-*/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+
+# Compiled
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# Package
+vcpkg_installed/
+_conan/
+
+# Qwen
+.qwen/
