@@ -444,7 +444,7 @@ class GraphAlgorithms
     private static function isBipartiteUtil(Graph $graph, $vertex, array &$colors, int $color): bool
     {
         $colors[$vertex] = $color;
-        
+
         foreach ($graph->getNeighbors($vertex) as $neighbor) {
             if (!isset($colors[$neighbor])) {
                 if (!self::isBipartiteUtil($graph, $neighbor, $colors, 1 - $color)) {
@@ -454,7 +454,709 @@ class GraphAlgorithms
                 return false;
             }
         }
-        
+
         return true;
+    }
+
+    // ==================== 最大流 ====================
+
+    /**
+     * Edmonds-Karp 最大流算法（Ford-Fulkerson 的 BFS 实现）
+     * 时间复杂度: O(V * E²)
+     * 空间复杂度: O(V + E)
+     *
+     * @param array $graph 邻接表表示的容量图: ['u' => ['v' => capacity, ...], ...]
+     * @param mixed $source 源点
+     * @param mixed $sink 汇点
+     * @return array ['maxFlow' => int, 'flow' => array]
+     */
+    public static function maxFlowEdmondsKarp(array $graph, $source, $sink): array
+    {
+        // 构建残余图
+        $residual = [];
+        $vertices = [];
+
+        foreach ($graph as $u => $edges) {
+            $vertices[$u] = true;
+            foreach ($edges as $v => $cap) {
+                $vertices[$v] = true;
+                $residual[$u][$v] = $cap;
+                if (!isset($residual[$v][$u])) {
+                    $residual[$v][$u] = 0;
+                }
+            }
+        }
+
+        $maxFlow = 0;
+        $flow = [];
+
+        while (true) {
+            // BFS 找增广路径
+            $parent = [];
+            $queue = new Queue();
+            $queue->enqueue($source);
+            $visited = [$source => true];
+
+            while (!$queue->isEmpty()) {
+                $u = $queue->dequeue();
+
+                if ($u === $sink) {
+                    break;
+                }
+
+                if (isset($residual[$u])) {
+                    foreach ($residual[$u] as $v => $cap) {
+                        if (!isset($visited[$v]) && $cap > 0) {
+                            $visited[$v] = true;
+                            $parent[$v] = $u;
+                            $queue->enqueue($v);
+                        }
+                    }
+                }
+            }
+
+            // 没有增广路径
+            if (!isset($parent[$sink])) {
+                break;
+            }
+
+            // 找瓶颈容量
+            $bottleneck = PHP_INT_MAX;
+            $v = $sink;
+            while ($v !== $source) {
+                $u = $parent[$v];
+                $bottleneck = min($bottleneck, $residual[$u][$v]);
+                $v = $u;
+            }
+
+            // 更新残余图
+            $v = $sink;
+            while ($v !== $source) {
+                $u = $parent[$v];
+                $residual[$u][$v] -= $bottleneck;
+                $residual[$v][$u] += $bottleneck;
+
+                if (!isset($flow[$u][$v])) {
+                    $flow[$u][$v] = 0;
+                }
+                $flow[$u][$v] += $bottleneck;
+
+                $v = $u;
+            }
+
+            $maxFlow += $bottleneck;
+        }
+
+        return ['maxFlow' => $maxFlow, 'flow' => $flow];
+    }
+
+    /**
+     * Dinic 最大流算法
+     * 时间复杂度: O(V² * E)，实践中更快
+     *
+     * @param array $graph
+     * @param mixed $source
+     * @param mixed $sink
+     * @return array
+     */
+    public static function maxFlowDinic(array $graph, $source, $sink): array
+    {
+        $vertices = [];
+        $edges = [];
+        $edgeCount = 0;
+
+        foreach ($graph as $u => $adj) {
+            $vertices[$u] = true;
+            foreach ($adj as $v => $cap) {
+                $vertices[$v] = true;
+            }
+        }
+        $vertices = array_keys($vertices);
+        $n = count($vertices);
+        $vertexIndex = array_flip($vertices);
+
+        $adj = array_fill(0, $n, []);
+
+        $addEdge = function($u, $v, $cap) use (&$edges, &$adj, &$edgeCount) {
+            $edges[] = ['to' => $v, 'cap' => $cap, 'rev' => $edgeCount + 1];
+            $adj[$u][] = $edgeCount++;
+            $edges[] = ['to' => $u, 'cap' => 0, 'rev' => $edgeCount - 1];
+            $adj[$v][] = $edgeCount++;
+        };
+
+        foreach ($graph as $u => $adjList) {
+            $ui = $vertexIndex[$u];
+            foreach ($adjList as $v => $cap) {
+                $vi = $vertexIndex[$v];
+                $addEdge($ui, $vi, $cap);
+            }
+        }
+
+        $s = $vertexIndex[$source];
+        $t = $vertexIndex[$sink];
+
+        $level = [];
+        $iter = [];
+
+        $bfs = function() use (&$level, &$adj, &$edges, $s, $n) {
+            $level = array_fill(0, $n, -1);
+            $queue = new Queue();
+            $level[$s] = 0;
+            $queue->enqueue($s);
+
+            while (!$queue->isEmpty()) {
+                $u = $queue->dequeue();
+                foreach ($adj[$u] as $ei) {
+                    $e = $edges[$ei];
+                    if ($e['cap'] > 0 && $level[$e['to']] < 0) {
+                        $level[$e['to']] = $level[$u] + 1;
+                        $queue->enqueue($e['to']);
+                    }
+                }
+            }
+
+            return $level[$t] >= 0;
+        };
+
+        $dfs = function($u, $f) use (&$dfs, &$level, &$iter, &$adj, &$edges, $t): int {
+            if ($u === $t) {
+                return $f;
+            }
+
+            for (; $iter[$u] < count($adj[$u]); $iter[$u]++) {
+                $ei = $adj[$u][$iter[$u]];
+                $e = &$edges[$ei];
+
+                if ($e['cap'] > 0 && $level[$u] < $level[$e['to']]) {
+                    $d = $dfs($e['to'], min($f, $e['cap']));
+                    if ($d > 0) {
+                        $e['cap'] -= $d;
+                        $edges[$e['rev']]['cap'] += $d;
+                        return $d;
+                    }
+                }
+            }
+
+            return 0;
+        };
+
+        $maxFlow = 0;
+        while ($bfs()) {
+            $iter = array_fill(0, $n, 0);
+            while (($f = $dfs($s, PHP_INT_MAX)) > 0) {
+                $maxFlow += $f;
+            }
+        }
+
+        // 从残余图重构流量
+        $flow = [];
+        foreach ($graph as $u => $adjList) {
+            $ui = $vertexIndex[$u];
+            foreach ($adjList as $v => $cap) {
+                $vi = $vertexIndex[$v];
+                foreach ($adj[$ui] as $ei) {
+                    $e = $edges[$ei];
+                    if ($e['to'] === $vi) {
+                        $sent = $graph[$u][$v] - $e['cap'];
+                        if ($sent > 0) {
+                            $flow[$u][$v] = $sent;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return ['maxFlow' => $maxFlow, 'flow' => $flow];
+    }
+
+    // ==================== 二分图匹配 ====================
+
+    /**
+     * 匈牙利算法 - 二分图最大匹配
+     * 时间复杂度: O(V * E)
+     *
+     * @param array $leftNodes 左侧节点列表
+     * @param array $rightNodes 右侧节点列表
+     * @param array $edges 边列表: ['left_node' => ['right_node1', 'right_node2', ...]]
+     * @return array ['matching' => [left => right, ...], 'count' => int]
+     */
+    public static function hungarianBipartiteMatching(array $leftNodes, array $rightNodes, array $edges): array
+    {
+        $matchR = [];  // right -> left
+        $matchL = [];  // left -> right
+
+        $tryKuhn = function($u) use (&$tryKuhn, &$matchR, &$matchL, $edges, $rightNodes) {
+            $visited = [];
+            $stack = [[$u, 0]]; // [current_node, neighbor_index]
+
+            while (!empty($stack)) {
+                [$cur, $idx] = $stack[count($stack) - 1];
+
+                $neighbors = $edges[$cur] ?? [];
+                if ($idx >= count($neighbors)) {
+                    array_pop($stack);
+                    continue;
+                }
+
+                $v = $neighbors[$idx];
+                $stack[count($stack) - 1][1] = $idx + 1;
+
+                if (!in_array($v, $rightNodes)) {
+                    continue;
+                }
+
+                if (!isset($matchR[$v])) {
+                    // 找到增广路径，回溯更新匹配
+                    $matchR[$v] = $cur;
+                    $matchL[$cur] = $v;
+
+                    // 回溯更新路径上的匹配
+                    for ($i = count($stack) - 2; $i >= 0; $i -= 2) {
+                        $leftNode = $stack[$i][0];
+                        $rightNode = $stack[$i + 1][0] ?? null;
+                        if ($rightNode !== null) {
+                            $matchR[$rightNode] = $leftNode;
+                            $matchL[$leftNode] = $rightNode;
+                        }
+                    }
+                    return true;
+                }
+
+                $nextU = $matchR[$v];
+                if ($nextU !== $cur && !in_array([$nextU, 0], $stack)) {
+                    $stack[] = [$v, $idx]; // 占位：记录当前右边的节点，后面不会再用了
+                    // 实际用递归思路：从matchR[v]重新开始
+                    $stack[] = [$nextU, 0];
+                }
+            }
+            return false;
+        };
+
+        // 对每个左侧节点尝试匹配（使用 DFS 风格更简洁）
+        $dfs = function($u, &$visited) use (&$dfs, &$matchR, $edges): bool {
+            $neighbors = $edges[$u] ?? [];
+            foreach ($neighbors as $v) {
+                if (isset($visited[$v])) {
+                    continue;
+                }
+                $visited[$v] = true;
+
+                if (!isset($matchR[$v]) || $dfs($matchR[$v], $visited)) {
+                    $matchR[$v] = $u;
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        $matchR = [];
+        foreach ($leftNodes as $u) {
+            $visited = [];
+            $dfs($u, $visited);
+        }
+
+        // 转换为 left -> right 的匹配
+        $matching = [];
+        foreach ($matchR as $v => $u) {
+            $matching[$u] = $v;
+        }
+
+        return ['matching' => $matching, 'count' => count($matching)];
+    }
+
+    // ==================== Kosaraju SCC ====================
+
+    /**
+     * Kosaraju 强连通分量算法
+     * 时间复杂度: O(V + E)
+     * 空间复杂度: O(V)
+     *
+     * @param Graph $graph
+     * @return array 强连通分量列表
+     */
+    public static function kosarajuSCC(Graph $graph): array
+    {
+        $vertices = $graph->getVertices();
+        $visited = [];
+        $finishOrder = [];
+
+        // 第一遍 DFS：记录完成顺序
+        $dfs1 = function($v) use (&$dfs1, $graph, &$visited, &$finishOrder) {
+            $visited[$v] = true;
+            foreach ($graph->getNeighbors($v) as $neighbor) {
+                if (!isset($visited[$neighbor])) {
+                    $dfs1($neighbor);
+                }
+            }
+            $finishOrder[] = $v;
+        };
+
+        foreach ($vertices as $v) {
+            if (!isset($visited[$v])) {
+                $dfs1($v);
+            }
+        }
+
+        // 构建反向图
+        $reverseGraph = [];
+        foreach ($vertices as $v) {
+            $reverseGraph[$v] = [];
+        }
+        foreach ($vertices as $u) {
+            foreach ($graph->getNeighbors($u) as $v) {
+                $reverseGraph[$v][] = $u;
+            }
+        }
+
+        // 第二遍 DFS：按完成顺序逆序处理
+        $visited = [];
+        $sccs = [];
+
+        $dfs2 = function($v) use (&$dfs2, &$reverseGraph, &$visited, &$currentSCC) {
+            $visited[$v] = true;
+            $currentSCC[] = $v;
+            foreach ($reverseGraph[$v] as $neighbor) {
+                if (!isset($visited[$neighbor])) {
+                    $dfs2($neighbor);
+                }
+            }
+        };
+
+        for ($i = count($finishOrder) - 1; $i >= 0; $i--) {
+            $v = $finishOrder[$i];
+            if (!isset($visited[$v])) {
+                $currentSCC = [];
+                $dfs2($v);
+                $sccs[] = $currentSCC;
+            }
+        }
+
+        return $sccs;
+    }
+
+    // ==================== 桥和割点 ====================
+
+    /**
+     * 查找无向图中的桥（割边）
+     * 时间复杂度: O(V + E)
+     *
+     * @param Graph $graph 无向图
+     * @return array 桥的列表，每条桥为 ['u' => $u, 'v' => $v]
+     */
+    public static function findBridges(Graph $graph): array
+    {
+        $vertices = $graph->getVertices();
+        $visited = [];
+        $disc = [];
+        $low = [];
+        $time = 0;
+        $bridges = [];
+
+        $dfs = function($u, $parent) use (&$dfs, $graph, &$visited, &$disc, &$low, &$time, &$bridges) {
+            $visited[$u] = true;
+            $disc[$u] = $low[$u] = ++$time;
+
+            foreach ($graph->getNeighbors($u) as $v) {
+                if (!isset($visited[$v])) {
+                    $dfs($v, $u);
+                    $low[$u] = min($low[$u], $low[$v]);
+
+                    if ($low[$v] > $disc[$u]) {
+                        $bridges[] = ['u' => $u, 'v' => $v];
+                    }
+                } elseif ($v !== $parent) {
+                    $low[$u] = min($low[$u], $disc[$v]);
+                }
+            }
+        };
+
+        foreach ($vertices as $v) {
+            if (!isset($visited[$v])) {
+                $dfs($v, null);
+            }
+        }
+
+        return $bridges;
+    }
+
+    /**
+     * 查找无向图中的割点（关节点）
+     * 时间复杂度: O(V + E)
+     *
+     * @param Graph $graph 无向图
+     * @return array 割点列表
+     */
+    public static function findArticulationPoints(Graph $graph): array
+    {
+        $vertices = $graph->getVertices();
+        $visited = [];
+        $disc = [];
+        $low = [];
+        $isArticulation = [];
+        $time = 0;
+
+        $dfs = function($u, $parent) use (&$dfs, $graph, &$visited, &$disc, &$low, &$time, &$isArticulation) {
+            $visited[$u] = true;
+            $disc[$u] = $low[$u] = ++$time;
+            $children = 0;
+
+            foreach ($graph->getNeighbors($u) as $v) {
+                if (!isset($visited[$v])) {
+                    $children++;
+                    $dfs($v, $u);
+                    $low[$u] = min($low[$u], $low[$v]);
+
+                    // 非根节点的割点条件
+                    if ($parent !== null && $low[$v] >= $disc[$u]) {
+                        $isArticulation[$u] = true;
+                    }
+                } elseif ($v !== $parent) {
+                    $low[$u] = min($low[$u], $disc[$v]);
+                }
+            }
+
+            // 根节点的割点条件
+            if ($parent === null && $children > 1) {
+                $isArticulation[$u] = true;
+            }
+        };
+
+        foreach ($vertices as $v) {
+            if (!isset($visited[$v])) {
+                $dfs($v, null);
+            }
+        }
+
+        return array_keys($isArticulation);
+    }
+
+    // ==================== LCA ====================
+
+    /**
+     * 最近公共祖先 (LCA) - 倍增法
+     *
+     * 直接对树结构计算 LCA，树以邻接表表示。
+     * 时间复杂度: 预处理 O(n log n)，查询 O(log n)
+     *
+     * @param array $tree 邻接表: ['node' => ['child1', 'child2', ...]]
+     * @param mixed $root 根节点
+     * @param mixed $u
+     * @param mixed $v
+     * @return mixed|null
+     */
+    public static function lca(array $tree, $root, $u, $v)
+    {
+        $nodes = [];
+        $collectNodes = function($node) use (&$collectNodes, $tree, &$nodes) {
+            $nodes[$node] = true;
+            if (isset($tree[$node])) {
+                foreach ($tree[$node] as $child) {
+                    $collectNodes($child);
+                }
+            }
+        };
+        $collectNodes($root);
+
+        $nodeList = array_keys($nodes);
+        $nodeIndex = array_flip($nodeList);
+        $n = count($nodeList);
+
+        $maxLog = (int)ceil(log($n, 2)) + 1;
+        $up = array_fill(0, $n, array_fill(0, $maxLog, -1));
+        $depth = array_fill(0, $n, 0);
+
+        // DFS 预处理
+        $dfs = function($node, $parentNode, $d) use (&$dfs, $tree, &$up, &$depth, $nodeIndex, $maxLog): void {
+            $idx = $nodeIndex[$node];
+            $depth[$idx] = $d;
+
+            if ($parentNode !== null) {
+                $up[$idx][0] = $nodeIndex[$parentNode];
+                for ($j = 1; $j < $maxLog; $j++) {
+                    if ($up[$idx][$j - 1] !== -1) {
+                        $up[$idx][$j] = $up[$up[$idx][$j - 1]][$j - 1];
+                    }
+                }
+            }
+
+            if (isset($tree[$node])) {
+                foreach ($tree[$node] as $child) {
+                    $dfs($child, $node, $d + 1);
+                }
+            }
+        };
+
+        $dfs($root, null, 0);
+
+        // 查询
+        $ui = $nodeIndex[$u];
+        $vi = $nodeIndex[$v];
+
+        // 让深度相同
+        if ($depth[$ui] < $depth[$vi]) {
+            [$ui, $vi] = [$vi, $ui];
+        }
+
+        $diff = $depth[$ui] - $depth[$vi];
+        for ($j = 0; $j < $maxLog; $j++) {
+            if ($diff & (1 << $j)) {
+                $ui = $up[$ui][$j];
+            }
+        }
+
+        if ($ui === $vi) {
+            return $nodeList[$ui];
+        }
+
+        // 同时上跳
+        for ($j = $maxLog - 1; $j >= 0; $j--) {
+            if ($up[$ui][$j] !== $up[$vi][$j]) {
+                $ui = $up[$ui][$j];
+                $vi = $up[$vi][$j];
+            }
+        }
+
+        return $nodeList[$up[$ui][0]];
+    }
+
+    // ==================== 最小费用最大流 ====================
+
+    /**
+     * 最小费用最大流 - 连续最短路算法 (SPFA)
+     *
+     * 在保证最大流的前提下，使总费用最小。
+     * 每条边有容量 capacity 和单位费用 cost。
+     *
+     * 时间复杂度: O(flow × V × E)，使用SPFA
+     *
+     * @param array $graph 邻接表: ['u' => [['to' => 'v', 'cap' => c, 'cost' => w], ...], ...]
+     * @param mixed $source 源点
+     * @param mixed $sink 汇点
+     * @return array ['maxFlow' => int, 'minCost' => int, 'flow' => array]
+     */
+    public static function minCostMaxFlow(array $graph, $source, $sink): array
+    {
+        // 构建边列表
+        $edges = [];
+        $adj = [];
+        $edgeCount = 0;
+
+        $addEdge = function($from, $to, $cap, $cost) use (&$edges, &$adj, &$edgeCount) {
+            $edges[] = ['to' => $to, 'cap' => $cap, 'cost' => $cost, 'rev' => $edgeCount + 1];
+            $adj[$from][] = $edgeCount++;
+            $edges[] = ['to' => $from, 'cap' => 0, 'cost' => -$cost, 'rev' => $edgeCount - 1];
+            $adj[$to][] = $edgeCount++;
+        };
+
+        foreach ($graph as $u => $neighbors) {
+            if (!isset($adj[$u])) {
+                $adj[$u] = [];
+            }
+            foreach ($neighbors as $edge) {
+                $v = $edge['to'];
+                $cap = $edge['cap'];
+                $cost = $edge['cost'];
+                if (!isset($adj[$v])) {
+                    $adj[$v] = [];
+                }
+                $addEdge($u, $v, $cap, $cost);
+            }
+        }
+
+        if (!isset($adj[$source]) || !isset($adj[$sink])) {
+            return ['maxFlow' => 0, 'minCost' => 0, 'flow' => []];
+        }
+
+        $maxFlow = 0;
+        $minCost = 0;
+        $dist = [];
+        $prevEdge = [];
+        $prevNode = [];
+        $inQueue = [];
+
+        while (true) {
+            // SPFA 找费用最短路
+            $dist = [];
+            $prevEdge = [];
+            $prevNode = [];
+            $inQueue = [];
+
+            foreach ($adj as $node => $_) {
+                $dist[$node] = PHP_INT_MAX;
+                $inQueue[$node] = false;
+            }
+
+            $queue = new Queue();
+            $dist[$source] = 0;
+            $inQueue[$source] = true;
+            $queue->enqueue($source);
+
+            while (!$queue->isEmpty()) {
+                $u = $queue->dequeue();
+                $inQueue[$u] = false;
+
+                foreach ($adj[$u] as $ei) {
+                    $e = $edges[$ei];
+                    if ($e['cap'] > 0 && $dist[$u] + $e['cost'] < $dist[$e['to']]) {
+                        $dist[$e['to']] = $dist[$u] + $e['cost'];
+                        $prevNode[$e['to']] = $u;
+                        $prevEdge[$e['to']] = $ei;
+
+                        if (!$inQueue[$e['to']]) {
+                            $inQueue[$e['to']] = true;
+                            $queue->enqueue($e['to']);
+                        }
+                    }
+                }
+            }
+
+            // 无法到达汇点
+            if (!isset($dist[$sink]) || $dist[$sink] === PHP_INT_MAX) {
+                break;
+            }
+
+            // 找瓶颈容量
+            $bottleneck = PHP_INT_MAX;
+            $v = $sink;
+            while ($v !== $source) {
+                $ei = $prevEdge[$v];
+                $bottleneck = min($bottleneck, $edges[$ei]['cap']);
+                $v = $prevNode[$v];
+            }
+
+            // 增广
+            $v = $sink;
+            while ($v !== $source) {
+                $ei = $prevEdge[$v];
+                $edges[$ei]['cap'] -= $bottleneck;
+                $edges[$edges[$ei]['rev']]['cap'] += $bottleneck;
+                $v = $prevNode[$v];
+            }
+
+            $maxFlow += $bottleneck;
+            $minCost += $bottleneck * $dist[$sink];
+        }
+
+        // 重构流量
+        $flow = [];
+        foreach ($graph as $u => $neighbors) {
+            foreach ($neighbors as $i => $edge) {
+                $v = $edge['to'];
+                // 找到对应的正向边
+                foreach ($adj[$u] as $ei) {
+                    $e = $edges[$ei];
+                    if ($e['to'] === $v) {
+                        $sent = $graph[$u][$i]['cap'] - $e['cap'];
+                        if ($sent > 0) {
+                            $flow[$u][$v] = ['flow' => $sent, 'cost' => $edge['cost'] * $sent];
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        return ['maxFlow' => $maxFlow, 'minCost' => $minCost, 'flow' => $flow];
     }
 }

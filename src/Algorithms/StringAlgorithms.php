@@ -470,7 +470,222 @@ class StringAlgorithms
             $repeat = $count === '' ? 1 : intval($count);
             $result .= str_repeat($char, $repeat);
         }
-        
+
         return $result;
+    }
+
+    // ==================== Aho-Corasick 自动机 ====================
+
+    /**
+     * Aho-Corasick 多模式匹配算法
+     * 构建一个自动机，支持在文本中同时搜索多个模式串。
+     * 时间复杂度: 构建 O(m)，搜索 O(n + z)
+     *   其中 m = 所有模式串长度之和，n = 文本长度，z = 匹配数量
+     * 空间复杂度: O(m)
+     *
+     * @param array $patterns 模式串列表
+     * @return AhoCorasick 自动机对象
+     */
+    public static function ahoCorasick(array $patterns): AhoCorasick
+    {
+        return new AhoCorasick($patterns);
+    }
+}
+
+/**
+ * Aho-Corasick 自动机
+ *
+ * 用途：
+ * 1. 敏感词过滤：同时检测多个敏感词
+ * 2. 搜索引擎：多关键词高亮
+ * 3. 入侵检测：多模式签名匹配
+ * 4. DNA 序列分析：多基因片段匹配
+ * 5. 拼写检查：词典匹配
+ */
+class AhoCorasick
+{
+    private array $trie = [];
+    private array $fail = [];
+    private array $output = [];
+    private int $nodeCount = 0;
+
+    /**
+     * @param array $patterns 模式串列表
+     */
+    public function __construct(array $patterns)
+    {
+        $this->nodeCount = 1;
+        $this->trie = [0 => []];
+        $this->fail = [0 => 0];
+        $this->output = [0 => []];
+
+        foreach ($patterns as $pattern) {
+            $this->insert($pattern);
+        }
+
+        $this->buildFailureLinks();
+    }
+
+    /**
+     * 插入模式串到 Trie 中
+     */
+    private function insert(string $pattern): void
+    {
+        $node = 0;
+        $len = strlen($pattern);
+
+        for ($i = 0; $i < $len; $i++) {
+            $char = $pattern[$i];
+
+            if (!isset($this->trie[$node][$char])) {
+                $this->nodeCount++;
+                $this->trie[$node][$char] = $this->nodeCount;
+                $this->trie[$this->nodeCount] = [];
+                $this->fail[$this->nodeCount] = 0;
+                $this->output[$this->nodeCount] = [];
+            }
+
+            $node = $this->trie[$node][$char];
+        }
+
+        $this->output[$node][] = $pattern;
+    }
+
+    /**
+     * BFS 构建失败链接
+     */
+    private function buildFailureLinks(): void
+    {
+        $queue = new \DataStructures\Linear\Queue();
+
+        // 第一层：所有字符边指向根节点
+        foreach ($this->trie[0] as $char => $child) {
+            $this->fail[$child] = 0;
+            $queue->enqueue($child);
+        }
+
+        while (!$queue->isEmpty()) {
+            $current = $queue->dequeue();
+
+            foreach ($this->trie[$current] as $char => $child) {
+                // 计算 child 的失败链接
+                $failNode = $this->fail[$current];
+
+                while ($failNode > 0 && !isset($this->trie[$failNode][$char])) {
+                    $failNode = $this->fail[$failNode];
+                }
+
+                if (isset($this->trie[$failNode][$char])) {
+                    $this->fail[$child] = $this->trie[$failNode][$char];
+                } else {
+                    $this->fail[$child] = 0;
+                }
+
+                // 合并输出：child 的输出 = 自己的输出 + 失败链接节点的输出
+                $this->output[$child] = array_merge(
+                    $this->output[$child],
+                    $this->output[$this->fail[$child]]
+                );
+
+                $queue->enqueue($child);
+            }
+        }
+    }
+
+    /**
+     * 在文本中搜索所有模式串
+     *
+     * @param string $text
+     * @return array 匹配列表: [['pattern' => string, 'position' => int], ...]
+     */
+    public function search(string $text): array
+    {
+        $matches = [];
+        $node = 0;
+        $len = strlen($text);
+
+        for ($i = 0; $i < $len; $i++) {
+            $char = $text[$i];
+
+            // 沿失败链接转移，直到可以匹配当前字符
+            while ($node > 0 && !isset($this->trie[$node][$char])) {
+                $node = $this->fail[$node];
+            }
+
+            if (isset($this->trie[$node][$char])) {
+                $node = $this->trie[$node][$char];
+            } else {
+                $node = 0;
+            }
+
+            // 检查当前节点的输出
+            if (!empty($this->output[$node])) {
+                foreach ($this->output[$node] as $pattern) {
+                    $matches[] = [
+                        'pattern' => $pattern,
+                        'position' => $i - strlen($pattern) + 1
+                    ];
+                }
+            }
+        }
+
+        return $matches;
+    }
+
+    /**
+     * 检查文本是否包含任一模式串
+     *
+     * @param string $text
+     * @return bool
+     */
+    public function containsAny(string $text): bool
+    {
+        $node = 0;
+        $len = strlen($text);
+
+        for ($i = 0; $i < $len; $i++) {
+            $char = $text[$i];
+
+            while ($node > 0 && !isset($this->trie[$node][$char])) {
+                $node = $this->fail[$node];
+            }
+
+            if (isset($this->trie[$node][$char])) {
+                $node = $this->trie[$node][$char];
+            } else {
+                $node = 0;
+            }
+
+            if (!empty($this->output[$node])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 过滤文本中的模式串（替换为 ***）
+     *
+     * @param string $text
+     * @param string $replacement
+     * @return string
+     */
+    public function filter(string $text, string $replacement = '***'): string
+    {
+        $matches = $this->search($text);
+
+        // 按位置排序，从后往前替换避免位置偏移
+        usort($matches, function($a, $b) {
+            return $b['position'] <=> $a['position'];
+        });
+
+        foreach ($matches as $match) {
+            $start = $match['position'];
+            $len = strlen($match['pattern']);
+            $text = substr_replace($text, $replacement, $start, $len);
+        }
+
+        return $text;
     }
 }

@@ -320,4 +320,263 @@ class DynamicProgramming
         
         return $count;
     }
+
+    // ==================== 背包问题变体 ====================
+
+    /**
+     * 完全背包问题（每种物品无限件）
+     * 时间复杂度: O(n * capacity)
+     * 空间复杂度: O(capacity)
+     *
+     * @param array $weights 物品重量列表
+     * @param array $values 物品价值列表
+     * @param int $capacity 背包容量
+     * @return int 最大价值
+     */
+    public static function unboundedKnapsack(array $weights, array $values, int $capacity): int
+    {
+        $dp = array_fill(0, $capacity + 1, 0);
+
+        for ($i = 0; $i < count($weights); $i++) {
+            // 正序遍历（与0-1背包的区别）
+            for ($w = $weights[$i]; $w <= $capacity; $w++) {
+                $dp[$w] = max($dp[$w], $dp[$w - $weights[$i]] + $values[$i]);
+            }
+        }
+
+        return $dp[$capacity];
+    }
+
+    /**
+     * 多重背包问题（每种物品有限件数）
+     * 使用二进制优化将每种物品拆分为多个0-1背包物品
+     * 时间复杂度: O(n * capacity * log(count))
+     * 空间复杂度: O(capacity)
+     *
+     * @param array $weights 物品重量列表
+     * @param array $values 物品价值列表
+     * @param array $counts 每种物品的数量限制
+     * @param int $capacity 背包容量
+     * @return int 最大价值
+     */
+    public static function boundedKnapsack(array $weights, array $values, array $counts, int $capacity): int
+    {
+        $dp = array_fill(0, $capacity + 1, 0);
+
+        for ($i = 0; $i < count($weights); $i++) {
+            $remaining = $counts[$i];
+            $k = 1;
+
+            // 二进制拆分
+            while ($remaining > 0) {
+                $take = min($k, $remaining);
+                $w = $weights[$i] * $take;
+                $v = $values[$i] * $take;
+
+                // 0-1 背包（逆序遍历）
+                for ($c = $capacity; $c >= $w; $c--) {
+                    $dp[$c] = max($dp[$c], $dp[$c - $w] + $v);
+                }
+
+                $remaining -= $take;
+                $k <<= 1;
+            }
+        }
+
+        return $dp[$capacity];
+    }
+
+    /**
+     * 分组背包问题（每组物品最多选一件）
+     * 时间复杂度: O(n * capacity)
+     * 空间复杂度: O(capacity)
+     *
+     * @param array $groups 分组物品: [[[weight, value], [weight, value], ...], ...]
+     * @param int $capacity 背包容量
+     * @return int 最大价值
+     */
+    public static function groupedKnapsack(array $groups, int $capacity): int
+    {
+        $dp = array_fill(0, $capacity + 1, 0);
+
+        foreach ($groups as $group) {
+            // 对每个容量，尝试该组中的每个物品
+            for ($c = $capacity; $c >= 0; $c--) {
+                foreach ($group as $item) {
+                    $w = $item[0];
+                    $v = $item[1];
+                    if ($c >= $w) {
+                        $dp[$c] = max($dp[$c], $dp[$c - $w] + $v);
+                    }
+                }
+            }
+        }
+
+        return $dp[$capacity];
+    }
+
+    // ==================== 高级 DP 变体 ====================
+
+    /**
+     * 状态压缩 DP — 旅行商问题 (TSP)
+     *
+     * 给定 n 个城市及两两距离，求从0出发，访问所有城市恰好一次的最短路径长度。
+     * 时间复杂度: O(n² × 2^n)
+     *
+     * @param array $dist 距离矩阵 dist[i][j]
+     * @return int 最短路径长度
+     */
+    public static function tsp(array $dist): int
+    {
+        $n = count($dist);
+        if ($n <= 1) {
+            return 0;
+        }
+
+        $INF = PHP_INT_MAX;
+        $fullMask = (1 << $n) - 1;
+
+        // dp[mask][i] = 从0出发，访问 mask 集合的城市，最后停在 i 的最短距离
+        $dp = [];
+        for ($mask = 0; $mask <= $fullMask; $mask++) {
+            $dp[$mask] = array_fill(0, $n, $INF);
+        }
+
+        $dp[1][0] = 0;  // 从城市0出发
+
+        for ($mask = 1; $mask <= $fullMask; $mask++) {
+            for ($u = 0; $u < $n; $u++) {
+                if (!($mask & (1 << $u)) || $dp[$mask][$u] === $INF) {
+                    continue;
+                }
+                for ($v = 0; $v < $n; $v++) {
+                    if ($mask & (1 << $v)) {
+                        continue;
+                    }
+                    $newMask = $mask | (1 << $v);
+                    $dp[$newMask][$v] = min($dp[$newMask][$v], $dp[$mask][$u] + $dist[$u][$v]);
+                }
+            }
+        }
+
+        // 回到起点（可选）— 这里求Hamilton路径，不回起点
+        $answer = $INF;
+        for ($i = 0; $i < $n; $i++) {
+            $answer = min($answer, $dp[$fullMask][$i]);
+        }
+
+        return $answer === $INF ? -1 : $answer;
+    }
+
+    /**
+     * 树形 DP — 树的最大独立集
+     *
+     * 给定树（邻接表），求最大的独立集（选取的节点互不相邻）。
+     *
+     * @param array $tree 邻接表 ['node' => [child1, child2, ...]]
+     * @param mixed $root 根节点
+     * @return int 最大独立集大小
+     */
+    public static function treeMaxIndependentSet(array $tree, $root): int
+    {
+        $dp = [];
+
+        $dfs = function($node, $parent) use (&$dfs, $tree, &$dp): void {
+            $dp[$node] = [0, 1]; // [不选, 选]
+
+            if (isset($tree[$node])) {
+                foreach ($tree[$node] as $child) {
+                    if ($child === $parent) {
+                        continue;
+                    }
+                    $dfs($child, $node);
+                    // 不选当前节点：子节点可选可不选
+                    $dp[$node][0] += max($dp[$child][0], $dp[$child][1]);
+                    // 选当前节点：子节点都不能选
+                    $dp[$node][1] += $dp[$child][0];
+                }
+            }
+        };
+
+        $dfs($root, null);
+        return max($dp[$root][0], $dp[$root][1]);
+    }
+
+    /**
+     * 数位 DP — 统计 [0, n] 中不包含数字 4 的个数
+     *
+     * @param int $n 上界
+     * @return int
+     */
+    public static function digitDPCountNoFour(int $n): int
+    {
+        $digits = array_map('intval', str_split((string)$n));
+        $len = count($digits);
+
+        $memo = [];
+
+        $dfs = function($pos, $tight, $started) use (&$dfs, $digits, $len, &$memo): int {
+            if ($pos === $len) {
+                return $started ? 1 : 0;
+            }
+
+            $key = $pos . '_' . ($tight ? '1' : '0') . '_' . ($started ? '1' : '0');
+            if (isset($memo[$key])) {
+                return $memo[$key];
+            }
+
+            $limit = $tight ? $digits[$pos] : 9;
+            $total = 0;
+
+            for ($d = 0; $d <= $limit; $d++) {
+                if ($d === 4) {
+                    continue;
+                }
+                $newTight = $tight && ($d === $limit);
+                $newStarted = $started || ($d > 0);
+                $total += $dfs($pos + 1, $newTight, $newStarted);
+            }
+
+            $memo[$key] = $total;
+            return $total;
+        };
+
+        return $dfs(0, true, false);
+    }
+
+    /**
+     * 区间 DP — 矩阵链乘法最小代价
+     *
+     * 给定矩阵维度 dims[0..n]，矩阵 i 的维度是 dims[i-1] × dims[i]
+     * 求最优乘法顺序的最小标量乘法次数。
+     *
+     * @param array $dims
+     * @return int
+     */
+    public static function matrixChainOrder(array $dims): int
+    {
+        $n = count($dims) - 1;
+        if ($n <= 1) {
+            return 0;
+        }
+
+        $dp = [];
+        for ($i = 0; $i < $n; $i++) {
+            $dp[$i] = array_fill(0, $n, PHP_INT_MAX);
+            $dp[$i][$i] = 0;
+        }
+
+        for ($len = 2; $len <= $n; $len++) {
+            for ($i = 0; $i <= $n - $len; $i++) {
+                $j = $i + $len - 1;
+                for ($k = $i; $k < $j; $k++) {
+                    $cost = $dp[$i][$k] + $dp[$k + 1][$j]
+                            + $dims[$i] * $dims[$k + 1] * $dims[$j + 1];
+                    $dp[$i][$j] = min($dp[$i][$j], $cost);
+                }
+            }
+        }
+
+        return $dp[0][$n - 1];
+    }
 }
