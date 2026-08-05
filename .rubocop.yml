@@ -1,0 +1,79 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'coverage/**/*'
+
+# 布局和格式
+Layout/LineLength:
+  Max: 120
+  AllowedPatterns: ['^\s*#']
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+# 样式
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 3
+
+# 度量
+Metrics/MethodLength:
+  Max: 30
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+Metrics/ClassLength:
+  Max: 200
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+Metrics/ModuleLength:
+  Max: 200
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+Metrics/BlockLength:
+  Max: 50
+  CountAsOne: ['array', 'hash', 'heredoc']
+  Exclude:
+    - 'tests/**/*'
+    - 'examples/**/*'
+    - 'demo.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/AbcSize:
+  Max: 20
+
+# 命名
+Naming/MethodParameterName:
+  MinNameLength: 2
+  AllowedNames: ['i', 'j', 'k', 'x', 'y', 'z']
+
+Naming/VariableName:
+  EnforcedStyle: snake_case
+
+# 性能相关配置已移至 rubocop-performance gem
+# 如需使用，请在 Gemfile 中添加 rubocop-performance
