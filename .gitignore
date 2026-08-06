@@ -1,0 +1,57 @@
+# ========================================
+# .NET / C# 项目通用 gitignore
+# ========================================
+
+## 编译输出
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.userprefs
+*.userosscache
+*.sln.docstates
+
+## NuGet
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+**/[Pp]ackages/repositories.config
+nuget.exe
+
+## Visual Studio
+.vs/
+*.sln.ide/
+*.rsuser
+[Aa]utomationSettings.json
+
+## Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+## Test Results / Coverage
+TestResults/
+*.trx
+*.coverage
+coverage*.xml
+coverage*.info
+*.lcov
+coveragereport/
+
+## Benchmark 输出
+BenchmarkDotNet.Artifacts/
+
+## 临时文件
+tmp/
+temp/
+*.tmp
+*.log
