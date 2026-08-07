@@ -78,7 +78,7 @@ ctest --output-on-failure
 - [x] 红黑树
 - [x] 堆：二叉堆
 - [x] 堆：斐波那契堆、配对堆
-- [ ] B 树 / B+ 树（数据库索引）
+- [x] B 树 / B+ 树（数据库索引）
 - [x] 线段树（区间查询与更新）
 - [x] 树状数组（Fenwick Tree）
 - [x] 字典树（Trie）
@@ -106,13 +106,13 @@ ctest --output-on-failure
 - [x] O(n²)：冒泡、选择、插入
 - [x] O(n log n)：归并、快速、堆排序
 - [x] 非比较排序：计数、基数、桶排序
-- [ ] 外部排序、TimSort
+- [x] 外部排序、TimSort
 
 ### 查找
 - [x] 线性查找
 - [x] 二分查找及其变体（lower_bound / upper_bound）
 - [x] 三分查找
-- [ ] 插值查找、指数查找
+- [x] 插值查找、指数查找
 
 ### 双指针与滑动窗口
 - [x] 快慢指针、对撞指针
@@ -154,7 +154,7 @@ ctest --output-on-failure
 - [x] SPFA
 - [x] Floyd-Warshall
 - [x] A* 搜索
-- [ ] Johnson 全源最短路径
+- [x] Johnson 全源最短路径
 
 ### 最小生成树
 - [x] Prim
@@ -163,19 +163,19 @@ ctest --output-on-failure
 ### 连通性
 - [x] 强连通分量（Tarjan / Kosaraju）
 - [x] 割点与桥
-- [ ] 双连通分量
-- [ ] 2-SAT 问题
+- [x] 双连通分量
+- [x] 2-SAT 问题
 
 ### 网络流
 - [x] 最大流：Ford-Fulkerson、Edmonds-Karp、Dinic
 - [x] 最小割
-- [ ] 费用流（最小费用最大流）
+- [x] 费用流（最小费用最大流）
 - [x] 二分图最大匹配（匈牙利算法 / 最大流）
-- [ ] KM 算法（带权二分图最优匹配）
+- [x] KM 算法（带权二分图最优匹配）
 
 ### 其他
 - [x] 欧拉路径 / 回路
-- [ ] 哈密顿路径（NP 完全）
+- [x] 哈密顿路径（NP 完全）
 
 ---
 
@@ -189,7 +189,7 @@ ctest --output-on-failure
 - [x] AC 自动机（Aho-Corasick）
 - [x] 后缀数组（Suffix Array）
 - [x] 后缀自动机（SAM）
-- [ ] 最小表示法
+- [x] 最小表示法
 - [x] 编辑距离（Levenshtein Distance）
 
 ---
@@ -236,7 +236,7 @@ ctest --output-on-failure
 - [x] 旋转卡壳
 - [x] 最近点对
 - [x] 扫描线算法
-- [ ] 半平面交
+- [x] 半平面交
 
 ---
 
@@ -250,13 +250,13 @@ ctest --output-on-failure
 - [x] 树形 DP
 - [x] 数位 DP
 - [x] 状态压缩 DP
-- [ ] 概率 DP
+- [x] 概率 DP
 - [ ] 插头 DP（轮廓线 DP）
 
 ### DP 优化
 - [x] 单调队列优化
 - [ ] 斜率优化
-- [ ] 四边形不等式优化
+- [x] 四边形不等式优化
 - [x] 矩阵快速幂优化（倍增 DP）
 - [ ] 数据结构优化（线段树 / 树状数组上 DP）
 
@@ -267,7 +267,7 @@ ctest --output-on-failure
 > 本章聚焦可直接用 C/C++ 从零实现的 AI 算法，不依赖 Python 生态。
 
 ### 搜索算法
-- [ ] 无信息搜索：BFS、DFS、迭代加深（IDDFS）
+- [x] 无信息搜索：BFS、DFS、迭代加深（IDDFS）
 - [x] 启发式搜索：A*、IDA*、双向 BFS
 - [x] 局部搜索：爬山法、模拟退火、禁忌搜索
 - [x] 博弈搜索：Minimax、Alpha-Beta 剪枝、蒙特卡洛树搜索（MCTS）
@@ -281,7 +281,7 @@ ctest --output-on-failure
 - [x] 遗传算法（GA）
 - [x] 粒子群优化（PSO）
 - [x] 蚁群算法（ACO）
-- [ ] 差分进化（DE）
+- [x] 差分进化（DE）
 - [x] 模拟退火（SA）
 
 ### 经典 ML 算法（从零实现）
@@ -295,10 +295,10 @@ ctest --output-on-failure
 - [x] 感知机 → 多层感知机（MLP）+ 反向传播
 
 ### 强化学习
-- [ ] 马尔可夫决策过程（MDP）
-- [ ] 价值迭代 / 策略迭代
+- [x] 马尔可夫决策过程（MDP）
+- [x] 价值迭代 / 策略迭代
 - [x] Q-Learning（表格法）
-- [ ] SARSA
+- [x] SARSA
 
 ### C++ ML 库（进阶，可选依赖）
 | 库                                      | 用途                              |
@@ -316,30 +316,30 @@ ctest --output-on-failure
 > C/C++ 的强项领域，覆盖从原子操作到并发模式。
 
 ### 基础原语
-- [ ] `std::thread` / `pthread` 线程管理
-- [ ] `std::mutex` / `std::shared_mutex` 互斥锁
-- [ ] `std::condition_variable` 条件变量
+- [x] `std::thread` / `pthread` 线程管理
+- [x] `std::mutex` / `std::shared_mutex` 互斥锁
+- [x] `std::condition_variable` 条件变量
 - [x] `std::atomic` 原子操作与内存序（memory order）
-- [ ] `std::future` / `std::promise` / `std::async`
+- [x] `std::future` / `std::promise` / `std::async`
 
 ### 并发数据结构
 - [x] 无锁队列（Lock-Free Queue）
-- [ ] 无锁栈（Lock-Free Stack）
+- [x] 无锁栈（Lock-Free Stack）
 - [x] 读写锁（Read-Write Lock）
-- [ ] 并发哈希表
+- [x] 并发哈希表
 - [x] 线程安全单例（Double-Checked Locking）
 
 ### 经典并发问题
-- [ ] 生产者-消费者模型
-- [ ] 读者-写者问题
+- [x] 生产者-消费者模型
+- [x] 读者-写者问题
 - [x] 哲学家就餐问题
 - [x] 线程池（Thread Pool）实现
 
 ### 同步模式
-- [ ] 信号量（Semaphore）
-- [ ] 屏障（Barrier / Latch）
+- [x] 信号量（Semaphore）
+- [x] 屏障（Barrier / Latch）
 - [ ] Read-Copy-Update（RCU）
-- [ ] CAS（Compare-And-Swap）编程
+- [x] CAS（Compare-And-Swap）编程
 
 ---
 
@@ -348,10 +348,10 @@ ctest --output-on-failure
 - [ ] 共识算法：Paxos / Raft
 - [ ] 分布式一致性：两阶段提交（2PC）
 - [x] 一致性哈希
-- [ ] Gossip 协议
+- [x] Gossip 协议
 - [ ] MapReduce 模型
 - [ ] 分布式锁
-- [ ] 向量时钟（Vector Clock）
+- [x] 向量时钟（Vector Clock）
 - [ ] CRDT（无冲突复制数据类型）
 
 ---
@@ -360,9 +360,9 @@ ctest --output-on-failure
 
 - [ ] 计算理论：P / NP / NP 完全 / NP 困难
 - [ ] 在线算法与竞争分析
-- [ ] 摊还分析
+- [x] 摊还分析
 - [x] 莫队算法（Mo's Algorithm）
-- [ ] CDQ 分治
+- [x] CDQ 分治
 - [ ] LCT（Link-Cut Tree）
 - [x] 主席树（可持久化线段树）
 - [ ] 树套树与分块
@@ -381,23 +381,23 @@ ctest --output-on-failure
 - [x] Address / Undefined / Thread Sanitizer
 
 ### 内存管理
-- [ ] RAII 与智能指针（`unique_ptr` / `shared_ptr`）
-- [ ] 自定义 Allocator（内存池 / 对象池 / slab）
+- [x] RAII 与智能指针（`unique_ptr` / `shared_ptr`）
+- [x] 自定义 Allocator（内存池 / 对象池 / slab）
 - [x] 内存对齐与缓存行（cache line）优化
 - [ ] Valgrind / AddressSanitizer 内存检测
 
 ### 性能优化
 - [ ] 性能分析：perf / gprof /火焰图
-- [ ] SIMD 向量化（SSE / AVX 内联汇编 + intrinsics）
-- [ ] 缓存友好数据结构（AoS vs SoA）
+- [x] SIMD 向量化（SSE / AVX 内联汇编 + intrinsics）
+- [x] 缓存友好数据结构（AoS vs SoA）
 - [x] 分支预测优化（`likely` / `unlikely`）
 - [ ] 编译器优化技巧（内联、循环展开、常量折叠）
 
 ### 模板与泛型
-- [ ] 模板元编程（TMP）基础
+- [x] 模板元编程（TMP）基础
 - [ ] SFINAE 与 `concepts`（C++20）
-- [ ] `constexpr` 编译期计算
-- [ ] 类型萃取（type traits）
+- [x] `constexpr` 编译期计算
+- [x] 类型萃取（type traits）
 
 ---
 
@@ -440,14 +440,14 @@ ctest --output-on-failure
 ```
 include/algorithm_x/
 ├── ds/          (22) 数据结构
-├── algo/        (9)  基础算法
-├── graph/       (8)  图论
-├── string/      (7)  字符串
+├── algo/        (10) 基础算法
+├── graph/       (12) 图论
+├── string/      (8)  字符串
 ├── math/        (7)  数学
 ├── geom/        (4)  计算几何
 ├── dp/          (5)  动态规划
 ├── ai/          (8)  AI/ML
-├── concurrent/  (4)  并发
+├── concurrent/  (5)  并发
 ├── distributed/ (1)  分布式
 ├── advanced/    (4)  进阶
 └── perf/        (1)  C++ 工程
