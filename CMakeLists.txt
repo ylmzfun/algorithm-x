@@ -36,3 +36,4 @@ target_include_directories(algorithm_x INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/inc
 
 # Subdirectories
 add_subdirectory(tests)
+add_subdirectory(examples)

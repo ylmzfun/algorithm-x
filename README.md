@@ -18,8 +18,12 @@
 ### 快速开始
 
 ```bash
+# 依赖管理：vcpkg（安装 fmt / spdlog / nlohmann-json / eigen3 / gtest）
+vcpkg install fmt spdlog nlohmann-json eigen3 gtest
+
 mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
 make -j$(nproc)
 ctest --output-on-failure
 ```
@@ -402,6 +406,104 @@ ctest --output-on-failure
 - [x] `constexpr` 编译期计算
 - [x] 类型萃取（type traits）
 
+### C/C++ 关键知识（系统梳理）
+
+#### 语言核心
+| 主题             | 关键点                                                           | 常见误区                          |
+| ---------------- | ---------------------------------------------------------------- | --------------------------------- |
+| 值类别           | lvalue / rvalue / prvalue / xvalue / glvalue；移动语义与完美转发 | 把移动当拷贝；移动后仍访问原对象  |
+| 对象生命周期     | 构造/析构顺序、RAII、三/五法则                                   | 忘记五法则导致悬垂指针 / 重复释放 |
+| 类型系统         | 模板、`auto` / `decltype` 推导规则、`explicit`                   | 隐式转换引发意外重载              |
+| 异常与安全保证   | 基本 / 强 / 无异常保证；`noexcept` 约定                          | 析构函数抛出异常                  |
+| 未定义行为（UB） | 越界、悬垂引用、有符号溢出、解引用空指针、双重释放               | 依赖"碰巧能跑"的未定义行为        |
+
+#### 内存模型
+| 主题       | 要点                                                                   |
+| ---------- | ---------------------------------------------------------------------- |
+| 存储区     | 栈（自动）、堆（`new` / `malloc`）、静态存储期、常量区；栈溢出与堆碎片 |
+| 对齐与打包 | `alignof` / `alignas`、`#pragma pack`、cache line（见 `perf/cache.h`） |
+| 字节序     | 大端 / 小端、网络序转换 `htonl` / `ntohl`                              |
+| 数据布局   | AoS vs SoA、虚表（vtable）与 RTTI 开销、小对象优化（SSO）              |
+
+#### 编译与链接
+| 主题           | 要点                                                                         |
+| -------------- | ---------------------------------------------------------------------------- |
+| 翻译单元与 ODR | 头文件只放声明 / `inline` / 模板；多重定义（ODR）违规                        |
+| 链接方式       | 静态库（.a / .lib）打包进可执行文件；动态库（.so / .dylib / .dll）运行时加载 |
+| ABI            | `extern "C"`、Itanium / MS ABI、符号可见性（`-fvisibility=hidden`）          |
+| 构建工具链     | CMake、Ninja、vcpkg / Conan 包管理（本仓库开发环境）                         |
+
+#### 现代 C++ 特性速查（C++11 → C++23）
+| 版本  | 代表特性                                                                        |
+| ----- | ------------------------------------------------------------------------------- |
+| C++11 | `auto`、移动语义、智能指针、lambda、`std::thread`、`unordered_*`、`std::chrono` |
+| C++14 | 泛型 lambda、返回值类型推导、`constexpr` 增强                                   |
+| C++17 | 结构化绑定、`if constexpr`、`std::optional/variant/any`、`filesystem`、并行算法 |
+| C++20 | concepts、ranges、coroutines、模块、`std::span`、`std::format`、三路比较 `<=>`  |
+| C++23 | `std::expected`、`std::flat_map`、`std::print`                                  |
+
+### 核心库（标准库全景）
+| 领域     | 关键头文件 / 组件                                                         | 典型用途                                                        |
+| -------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| 容器     | `<vector>` `<list>` `<deque>` `<array>` `<map>` `<set>` `<unordered_map>` | 序列 / 关联 / 哈希容器                                          |
+| 算法     | `<algorithm>` `<numeric>`                                                 | `sort`、`nth_element`、`lower_bound`、`accumulate`、`transform` |
+| 字符串   | `<string>` `<string_view>` `<regex>`                                      | 动态字符串、零拷贝视图、正则                                    |
+| IO       | `<iostream>` `<fstream>` `<sstream>` `<format>`                           | 控制台 / 文件 / 内存流、格式化                                  |
+| 数值     | `<cmath>` `<complex>` `<random>` `<numbers>`                              | 数学函数、伪随机、数学常量                                      |
+| 时间     | `<chrono>` `<ctime>`                                                      | 高精度计时、日期时间                                            |
+| 并发     | `<thread>` `<mutex>` `<atomic>` `<future>` `<condition_variable>`         | 线程、同步、原子、异步任务（见第 10 章）                        |
+| 通用工具 | `<utility>` `<optional>` `<variant>` `<any>` `<span>` `<tuple>`           | 移动 / 交换、可选值、多态、连续视图                             |
+
+### 优秀第三方库（生态）
+| 类别     | 库                                                                                                   | 用途                                      | 安装（vcpkg）                 |
+| -------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------- | ----------------------------- |
+| 通用工具 | [Boost](https://www.boost.org)                                                                       | 覆盖面最广：智能指针、图、正则、Asio 网络 | `vcpkg install boost`         |
+| 通用工具 | [Abseil](https://abseil.io)                                                                          | Google 基础库：容器、时间、字符串         | `vcpkg install abseil`        |
+| 格式化   | [fmtlib](https://fmt.dev)                                                                            | 类型安全格式化（`std::format` 前身）      | `vcpkg install fmt`           |
+| 日志     | [spdlog](https://github.com/gabime/spdlog)                                                           | 高性能 C++ 日志库                         | `vcpkg install spdlog`        |
+| JSON     | [nlohmann/json](https://json.nlohmann.me)                                                            | 易用的 JSON 解析 / 序列化                 | `vcpkg install nlohmann-json` |
+| 序列化   | [protobuf](https://protobuf.dev)                                                                     | 跨语言二进制序列化                        | `vcpkg install protobuf`      |
+| 测试     | [GoogleTest](https://github.com/google/googletest)                                                   | 本仓库测试框架                            | `vcpkg install gtest`         |
+| 测试     | [Catch2](https://github.com/catchorg/Catch2)                                                         | 单头文件 / BDD 风格测试                   | `vcpkg install catch2`        |
+| 网络     | [Asio](https://think-async.com/Asio/)                                                                | 异步网络（TCP / UDP / SSL）               | `vcpkg install asio`          |
+| 网络     | [cpp-httplib](https://github.com/yhirose/cpp-httplib)                                                | 极简 HTTP 客户端 / 服务端                 | `vcpkg install cpp-httplib`   |
+| 并发     | [oneTBB](https://github.com/oneapi-src/oneTBB)                                                       | 并行算法与任务调度                        | `vcpkg install tbb`           |
+| 数值     | [Eigen](https://eigen.tuxfamily.org)                                                                 | 线性代数：矩阵、特征值、求解器            | `vcpkg install eigen3`        |
+| 数值     | [xtensor](https://xtensor.readthedocs.io)                                                            | 类 NumPy 的 N 维数组                      | `vcpkg install xtensor`       |
+| 图像     | [OpenCV](https://opencv.org)                                                                         | 计算机视觉、图像处理                      | `vcpkg install opencv`        |
+| 图像     | [stb](https://github.com/nothings/stb)                                                               | 单文件图像加载等（stb 系列）              | `vcpkg install stb`           |
+| 数据库   | [sqlite3](https://www.sqlite.org)                                                                    | 嵌入式关系数据库                          | `vcpkg install sqlite3`       |
+| 解析     | [re2](https://github.com/google/re2)                                                                 | 高性能正则引擎                            | `vcpkg install re2`           |
+| 内存     | [mimalloc](https://github.com/microsoft/mimalloc)                                                    | 高性能内存分配器                          | `vcpkg install mimalloc`      |
+| 性能     | [simdjson](https://simdjson.org)                                                                     | 极速 JSON 解析（SIMD）                    | `vcpkg install simdjson`      |
+| 静态分析 | [Cppcheck](https://cppcheck.sourceforge.io) / [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy/) | 静态检查；clang-tidy 可集成进 CMake       | `vcpkg install cppcheck`      |
+
+### 典型使用案例（可运行代码）
+
+全部示例已用真实代码实现于 `examples/` 目录（纯标准库示例 + 第三方库示例），
+构建后直接运行：
+
+| 分组     | 可执行文件             | 演示内容                                   |
+| -------- | ---------------------- | ------------------------------------------ |
+| 关键知识 | `ex_value_categories`  | 值类别、移动语义、完美转发                 |
+| 关键知识 | `ex_raii_lifetime`     | RAII、对象生命周期、三/五法则              |
+| 关键知识 | `ex_memory_layout`     | 存储区、对齐、字节序                       |
+| 关键知识 | `ex_modern_cpp20`      | concepts、ranges、span、format、结构化绑定 |
+| 核心库   | `ex_std_containers`    | 序列 / 关联 / 哈希容器                     |
+| 核心库   | `ex_std_algorithms`    | 排序、二分、累加、变换等算法               |
+| 核心库   | `ex_std_strings`       | string / string_view / regex               |
+| 核心库   | `ex_std_concurrency`   | thread / atomic / future                   |
+| 核心库   | `ex_std_chrono_random` | 高精度计时与随机分布                       |
+| 第三方库 | `ex_fmt_spdlog`        | fmt 格式化 + spdlog 日志                   |
+| 第三方库 | `ex_json_config`       | nlohmann/json 解析与序列化                 |
+| 第三方库 | `ex_eigen_math`        | Eigen 线性方程组求解与特征值               |
+| 综合案例 | `ex_full_stack_demo`   | JSON 配置 + 日志 + Eigen 求解全链路        |
+
+```bash
+# 构建并运行（第三方库依赖 vcpkg：fmt / spdlog / nlohmann-json / eigen3）
+cd build && make ex_full_stack_demo -j && ./examples/ex_full_stack_demo
+```
+
 ---
 
 ## 参考资源
@@ -454,6 +556,9 @@ include/algorithm_x/
 ├── distributed/ (8)  分布式
 ├── advanced/    (10) 进阶
 └── perf/        (3)  C++ 工程
+
+examples/       (13) 可运行示例：关键知识 / 标准库 / 第三方库 / 综合案例
+docs/              工程与性能笔记（编译选项、CMake、性能分析等）
 ```
 
 > 持续更新中。每个章节的详细笔记和 C/C++ 代码实现位于对应子目录。
