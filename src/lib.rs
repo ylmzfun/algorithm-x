@@ -1,8 +1,9 @@
-pub mod data_structures;
-pub mod tree;
-pub mod graph;
-pub mod sort;
-pub mod search;
 pub mod algorithm;
-pub mod string;
+pub mod data_structures;
+pub mod graph;
 pub mod math;
+pub mod rust_engineering;
+pub mod search;
+pub mod sort;
+pub mod string;
+pub mod tree;
