@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/segment_tree.h"
+#include "ds/segment_tree.h"
 
 #include <gtest/gtest.h>
 #include <vector>

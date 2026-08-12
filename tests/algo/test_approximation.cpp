@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/approximation.h"
+#include "algo/approximation.h"
 
 #include <algorithm>
 #include <bit>

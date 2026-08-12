@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/adjacency_matrix.h"
+#include "ds/adjacency_matrix.h"
 
 #include <cstddef>
 

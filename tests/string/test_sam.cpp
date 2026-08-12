@@ -1,4 +1,4 @@
-#include "algorithm_x/string/sam.h"
+#include "string/sam.h"
 #include <string>
 #include "gtest/gtest.h"
 using namespace algorithm_x::string;

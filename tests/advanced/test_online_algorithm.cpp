@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/online_algorithm.h"
+#include "advanced/online_algorithm.h"
 
 #include <vector>
 

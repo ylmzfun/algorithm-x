@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/greedy.h"
+#include "algo/greedy.h"
 
 #include <vector>
 

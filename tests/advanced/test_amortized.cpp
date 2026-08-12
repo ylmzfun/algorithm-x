@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/amortized.h"
+#include "advanced/amortized.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::advanced;
 namespace {

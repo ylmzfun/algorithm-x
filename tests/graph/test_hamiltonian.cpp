@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/hamiltonian.h"
+#include "graph/hamiltonian.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;
 namespace {

@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/huffman.h"
+#include "ds/huffman.h"
 #include <string>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;

@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/common.h"
+#include "dp/common.h"
 
 #include <vector>
 

@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/dining.h"
+#include "concurrent/dining.h"
 #include <thread>
 #include <vector>
 #include "gtest/gtest.h"

@@ -1,0 +1,18 @@
+# 项目代码风格：与 README「代码风格」章节保持一致
+# - 4 空格缩进；K&R 大括号（左括号同行）；仅 // 注释
+# - include 块顺序保持源码原样（标准库在前，本仓库头在后）
+BasedOnStyle: LLVM
+IndentWidth: 4
+ContinuationIndentWidth: 4
+BreakBeforeBraces: Attach
+ColumnLimit: 100
+NamespaceIndentation: All
+IndentCaseLabels: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+IncludeBlocks: Preserve
+SortIncludes: Never
+Standard: c++20
+DerivePointerAlignment: false
+PointerAlignment: Right

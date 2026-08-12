@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/naive_bayes.h"
+#include "ai/naive_bayes.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;

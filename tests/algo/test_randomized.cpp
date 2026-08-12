@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/randomized.h"
+#include "algo/randomized.h"
 
 #include <algorithm>
 #include <cmath>

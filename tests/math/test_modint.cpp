@@ -1,4 +1,4 @@
-#include "algorithm_x/math/modint.h"
+#include "math/modint.h"
 
 #include <cstdint>
 #include <tuple>

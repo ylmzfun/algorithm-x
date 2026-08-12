@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/forward_star.h"
+#include "ds/forward_star.h"
 
 #include <cstddef>
 #include <utility>

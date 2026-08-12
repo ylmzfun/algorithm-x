@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/network_flow.h"
+#include "graph/network_flow.h"
 
 #include <vector>
 

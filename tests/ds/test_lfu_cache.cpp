@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/lfu_cache.h"
+#include "ds/lfu_cache.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;
 namespace {

@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/more_algo.h"
+#include "algo/more_algo.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::algo;

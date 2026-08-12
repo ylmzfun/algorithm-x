@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/sort.h"
+#include "algo/sort.h"
 
 #include <algorithm>
 #include <functional>

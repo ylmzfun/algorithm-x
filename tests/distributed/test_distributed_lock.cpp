@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/distributed_lock.h"
+#include "distributed/distributed_lock.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::distributed;
 namespace {

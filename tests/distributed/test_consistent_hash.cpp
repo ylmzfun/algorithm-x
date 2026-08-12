@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/consistent_hash.h"
+#include "distributed/consistent_hash.h"
 
 #include <set>
 #include <string>

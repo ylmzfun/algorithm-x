@@ -1,4 +1,4 @@
-#include "algorithm_x/string/min_representation.h"
+#include "string/min_representation.h"
 #include <string>
 #include "gtest/gtest.h"
 using namespace algorithm_x::string;

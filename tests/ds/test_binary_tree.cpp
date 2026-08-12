@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/binary_tree.h"
+#include "ds/binary_tree.h"
 
 #include <gtest/gtest.h>
 #include <string>

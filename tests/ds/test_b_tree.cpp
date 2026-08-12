@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/b_tree.h"
+#include "ds/b_tree.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;
 namespace {

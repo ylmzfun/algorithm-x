@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/rl_advanced.h"
+#include "ai/rl_advanced.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;
 namespace {

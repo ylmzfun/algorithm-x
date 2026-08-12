@@ -1,4 +1,4 @@
-#include "algorithm_x/perf/memory_pool.h"
+#include "perf/memory_pool.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::perf;
 namespace {

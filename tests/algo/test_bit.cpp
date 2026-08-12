@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/bit.h"
+#include "algo/bit.h"
 
 #include <gtest/gtest.h>
 

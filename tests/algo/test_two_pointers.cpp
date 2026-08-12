@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/two_pointers.h"
+#include "algo/two_pointers.h"
 
 #include <gtest/gtest.h>
 #include <vector>

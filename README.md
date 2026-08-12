@@ -1,4 +1,4 @@
-# Algorithm X — 算法学习大纲（C/C++）
+# Algorithm-CC — 算法学习
 
 > 基于 **C/C++** 的算法学习仓库，系统覆盖数据结构、经典算法、AI 核心算法及进阶专题。
 > 每个模块包含原理说明 + 可运行的 C/C++ 实现。
@@ -7,25 +7,47 @@
 
 ## 开发环境
 
-| 项目     | 说明                 |
-| -------- | -------------------- |
-| 语言标准 | C17 / C++20          |
-| 编译器   | GCC 12+ / Clang 16+  |
-| 构建工具 | CMake 3.20+          |
-| 测试框架 | Google Test（gtest） |
-| 包管理   | vcpkg / Conan        |
+| 项目     | 说明                        |
+| -------- | --------------------------- |
+| 语言标准 | C17 / C++20                 |
+| 编译器   | GCC 12+ / Clang 16+         |
+| 构建工具 | CMake 3.20+（CMakePresets） |
+| 测试框架 | Google Test（gtest）        |
+| 包管理   | vcpkg（唯一依赖来源）       |
 
 ### 快速开始
 
 ```bash
-# 依赖管理：vcpkg（安装 fmt / spdlog / nlohmann-json / eigen3 / gtest）
+# 1. 依赖管理：vcpkg（安装 fmt / spdlog / nlohmann-json / eigen3 / gtest）
 vcpkg install fmt spdlog nlohmann-json eigen3 gtest
 
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
-make -j$(nproc)
-ctest --output-on-failure
+# 2. 配置 / 构建 / 测试（预设已内置 vcpkg toolchain）
+cmake --preset release
+cmake --build --preset release -j$(nproc)
+ctest --preset release
+```
+
+构建输出位于 `build/<preset>/`。常用预设：`release`（默认）、`debug`
+（启用 ASan/UBSan）；亦可用 `cmake --workflow --preset ci` 一键完成全流程。
+
+---
+
+## 项目结构
+
+```
+algorithm-cc/
+├── CMakeLists.txt           # 顶层构建：选项 BUILD_TESTS / BUILD_EXAMPLES / Sanitizer
+├── CMakePresets.json        # 构建预设（debug / release，内置 vcpkg toolchain）
+├── cmake/                   # 可复用 CMake 模块（警告、gtest 套件注册、包配置）
+├── include/                # 头文件-only 库：12 个模块（include/ds、include/graph、…）
+├── tests/                   # GTest 单元测试：每模块一套件（共 823 用例）
+├── examples/                # 可运行示例：关键知识 / 标准库 / 第三方库 / 综合案例
+├── docs/                    # 算法参考手册（中文）+ 工程与性能笔记
+├── .github/workflows/       # CI（Ubuntu / macOS 构建 + 测试 + 安装冒烟）
+├── .clang-format            # 代码格式化约束（与「代码风格」章节一致）
+├── .clang-tidy              # 静态检查配置
+├── .editorconfig            # 编辑器统一配置
+└── CHANGELOG.md             # 版本更新日志
 ```
 
 ---
@@ -546,7 +568,7 @@ cd build && make ex_full_stack_demo -j && ./examples/ex_full_stack_demo
 | **合计** |                     | **12 模块**    | **126 头文件** | **823 tests** |      |
 
 ```
-include/algorithm_x/
+include/
 ├── ds/          (24) 数据结构
 ├── algo/        (14) 基础算法
 ├── graph/       (14) 图论

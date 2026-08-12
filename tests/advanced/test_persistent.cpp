@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/persistent.h"
+#include "advanced/persistent.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::advanced;

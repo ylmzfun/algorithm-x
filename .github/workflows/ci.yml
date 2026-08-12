@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup vcpkg
+        run: |
+          git clone --depth 1 https://github.com/microsoft/vcpkg "$VCPKG_ROOT"
+          "$VCPKG_ROOT/bootstrap-vcpkg.sh" -disableMetrics
+
+      - name: Install dependencies
+        run: "$VCPKG_ROOT/vcpkg" install fmt spdlog nlohmann-json eigen3 gtest
+
+      - name: Configure
+        run: cmake --preset release
+
+      - name: Build
+        run: cmake --build --preset release -j2
+
+      - name: Test
+        run: ctest --preset release
+
+      - name: Install smoke test (find_package)
+        run: |
+          cmake --install build/release --prefix "${{ github.workspace }}/install-test"
+          test -f "${{ github.workspace }}/install-test/include/algorithm_x/ds/avl_tree.h"

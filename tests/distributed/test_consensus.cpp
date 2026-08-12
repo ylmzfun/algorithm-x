@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/consensus.h"
+#include "distributed/consensus.h"
 
 #include "gtest/gtest.h"
 

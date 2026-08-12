@@ -1,4 +1,4 @@
-#include "algorithm_x/string/aho_corasick.h"
+#include "string/aho_corasick.h"
 
 #include <string>
 #include <utility>

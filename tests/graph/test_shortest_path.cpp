@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/shortest_path.h"
+#include "graph/shortest_path.h"
 
 #include <limits>
 #include <vector>

@@ -26,7 +26,7 @@ inline int64_t binomial(int n, int k);
 - 小规模、无需取模的组合数计算
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/combinatorics.h"
+#include "math/combinatorics.h"
 using namespace algorithm_x::math;
 int64_t c = catalan_number(5);   // 42：5 对括号的合法序列数
 int64_t b = binomial(5, 2);      // 10
@@ -56,7 +56,7 @@ inline std::vector<int> fft_multiply(const std::vector<int>& a,
 - 字符串匹配（模式与文本的错位相关）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/fft.h"
+#include "math/fft.h"
 using namespace algorithm_x::math;
 std::vector<int> a = {1, 2, 1};  // 1 + 2x + x²
 std::vector<int> b = {1, 1};     // 1 + x
@@ -85,7 +85,7 @@ inline int sg_function(const std::vector<std::vector<int>>& adj);
 - 棋盘走子、图上取石子等公平组合博弈分析
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/game_theory.h"
+#include "math/game_theory.h"
 using namespace algorithm_x::math;
 bool win  = nim_win({1, 3, 5});   // 异或和 != 0，先手必胜
 bool lose = nim_win({1, 1});      // 异或和为 0，先手必败
@@ -108,7 +108,7 @@ inline std::vector<int64_t> generating_function_ways(const std::vector<int>& wei
 - 母函数 / 生成函数思想入门
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/generating_function.h"
+#include "math/generating_function.h"
 using namespace algorithm_x::math;
 auto ways = generating_function_ways(std::vector<int>{1, 2, 3}, 4);
 // ways[4] == 4：1+1+1+1、1+1+2、1+3、2+2
@@ -131,7 +131,7 @@ inline double determinant(std::vector<std::vector<double>> a);
 - 线性代数方程组理论推导（克拉默法则、矩阵可逆性判断）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/linear_algebra.h"
+#include "math/linear_algebra.h"
 using namespace algorithm_x::math;
 std::vector<std::vector<double>> m = {{3, 8}, {4, 6}};
 double det = determinant(m);   // -14
@@ -171,7 +171,7 @@ inline std::vector<double> gaussian_elimination(
 - 线性方程组求解、图论中路径计数（邻接矩阵幂）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/matrix.h"
+#include "math/matrix.h"
 using namespace algorithm_x::math;
 int64_t fib = fibonacci<int64_t>(50);          // 12586269025
 auto R = matrix_pow(std::vector<std::vector<int>>{{1, 1}, {1, 0}}, 5);
@@ -217,7 +217,7 @@ inline int64_t euler_phi(int64_t n);
 - 与模数互质的数计数（欧拉函数）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/modint.h"
+#include "math/modint.h"
 using namespace algorithm_x::math;
 auto [g, x, y] = extended_gcd(30, 12);     // g = 6，且 30x + 12y = 6
 int64_t inv = mod_inverse(3, 7);           // 5
@@ -272,7 +272,7 @@ inline std::vector<int64_t> prime_factors(int64_t n);
 - 大整数质因数分解
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/prime.h"
+#include "math/prime.h"
 using namespace algorithm_x::math;
 bool ok = is_prime_miller_rabin(999983);    // true
 auto [is_prime, min_p] = linear_sieve(30);  // 素数表 + 最小质因子
@@ -304,7 +304,7 @@ inline int64_t pigeonhole_max_min(int64_t n, int64_t m);
 - 存在性证明与构造题（鸽巢原理）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/principles.h"
+#include "math/principles.h"
 using namespace algorithm_x::math;
 // |A|=3, |B|=4, |C|=5，两两交集 1, 2, 1，三交集 0 → 并集大小 8
 int64_t u  = inclusion_exclusion({0, 3, 4, 1, 5, 2, 1, 0});
@@ -336,7 +336,7 @@ inline double binomial_probability(int n, int k, double p);
 - 伯努利试验 / 二项分布概率计算
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/probability.h"
+#include "math/probability.h"
 using namespace algorithm_x::math;
 double ev = expected_value({0.5, 0.5}, {2.0, 4.0});  // 3.0
 double pb = binomial_probability(10, 5, 0.5);        // 252 / 1024
@@ -367,7 +367,7 @@ inline int64_t bell_number(int n);
 - 划分方案总数（贝尔数）
 **使用示例**：
 ```cpp
-#include "algorithm_x/math/stirling.h"
+#include "math/stirling.h"
 using namespace algorithm_x::math;
 int64_t s1 = stirling_first(5, 2);    // 50
 int64_t s2 = stirling_second(5, 3);   // 25

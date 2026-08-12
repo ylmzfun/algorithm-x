@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/branch_and_bound.h"
+#include "algo/branch_and_bound.h"
 
 #include <algorithm>
 #include <cstddef>

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "algorithm_x/ds/graph.h"
+#include "ds/graph.h"
 
 using algorithm_x::ds::Graph;
 

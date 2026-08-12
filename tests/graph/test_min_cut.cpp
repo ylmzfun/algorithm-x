@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/min_cut.h"
+#include "graph/min_cut.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;

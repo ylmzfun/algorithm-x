@@ -25,7 +25,7 @@ public:
 - 学习 `shared_mutex`（读共享 / 写独占）的用法。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/concurrent_hash_table.h"
+#include "concurrent/concurrent_hash_table.h"
 using namespace algorithm_x::concurrent;
 
 ConcurrentHashTable<int, std::string> ht;
@@ -58,7 +58,7 @@ public:
 - 学习原子计数（`fetch_add`）的简单用法。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/dining.h"
+#include "concurrent/dining.h"
 #include <thread>
 using namespace algorithm_x::concurrent;
 
@@ -119,7 +119,7 @@ public:
 - 读多写少的共享数据保护（对比 `std::shared_mutex` 的教学实现）。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/lock_free_queue.h"
+#include "concurrent/lock_free_queue.h"
 using namespace algorithm_x::concurrent;
 
 LockFreeQueue<int> q(8);
@@ -159,7 +159,7 @@ public:
 - 对比 Treiber 栈与互斥锁栈的并发性能。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/lock_free_stack.h"
+#include "concurrent/lock_free_stack.h"
 using namespace algorithm_x::concurrent;
 
 LockFreeStack<int> s;
@@ -192,7 +192,7 @@ public:
 - 对比"写者加锁更新 vs 全程加锁"的读者路径开销。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/rcu.h"
+#include "concurrent/rcu.h"
 using namespace algorithm_x::concurrent;
 
 RcuValue<int> rcu(0);
@@ -232,7 +232,7 @@ public:
 - 学习条件变量"谓词等待 + notify"的规范写法。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/sync.h"
+#include "concurrent/sync.h"
 using namespace algorithm_x::concurrent;
 
 Semaphore sem(2);                // 最多 2 个并发访问者
@@ -269,7 +269,7 @@ public:
 - 学习 `packaged_task` + `future` + 条件变量生产者-消费者模型。
 **使用示例**：
 ```cpp
-#include "algorithm_x/concurrent/thread_pool.h"
+#include "concurrent/thread_pool.h"
 using namespace algorithm_x::concurrent;
 
 ThreadPool pool(4);

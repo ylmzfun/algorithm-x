@@ -1,4 +1,4 @@
-#include "algorithm_x/math/principles.h"
+#include "math/principles.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::math;
 namespace {

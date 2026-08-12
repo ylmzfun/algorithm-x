@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/two_sat.h"
+#include "graph/two_sat.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;
 namespace {

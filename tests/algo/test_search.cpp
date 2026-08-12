@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/search.h"
+#include "algo/search.h"
 
 #include <string>
 #include <vector>

@@ -1,4 +1,4 @@
-#include "algorithm_x/string/suffix_array.h"
+#include "string/suffix_array.h"
 #include <string>
 #include <vector>
 #include "gtest/gtest.h"

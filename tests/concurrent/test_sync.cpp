@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/sync.h"
+#include "concurrent/sync.h"
 #include <atomic>
 #include <thread>
 #include <vector>

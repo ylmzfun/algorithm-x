@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/mo_algorithm.h"
+#include "advanced/mo_algorithm.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::advanced;

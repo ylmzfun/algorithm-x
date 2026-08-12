@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/rcu.h"
+#include "concurrent/rcu.h"
 
 #include <atomic>
 #include <mutex>

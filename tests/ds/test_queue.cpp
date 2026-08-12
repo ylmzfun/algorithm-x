@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
-#include "algorithm_x/ds/queue.h"
+#include "ds/queue.h"
 
 using namespace algorithm_x::ds;
 

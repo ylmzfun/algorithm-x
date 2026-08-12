@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/bloom_filter.h"
+#include "ds/bloom_filter.h"
 #include <string>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;

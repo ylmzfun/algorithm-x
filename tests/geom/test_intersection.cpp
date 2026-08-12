@@ -1,4 +1,4 @@
-#include "algorithm_x/geom/intersection.h"
+#include "geom/intersection.h"
 
 #include <algorithm>
 #include <cmath>

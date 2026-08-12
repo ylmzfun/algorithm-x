@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/thread_pool.h"
+#include "concurrent/thread_pool.h"
 
 #include <algorithm>
 #include <chrono>

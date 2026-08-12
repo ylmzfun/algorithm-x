@@ -1,4 +1,4 @@
-#include "algorithm_x/math/game_theory.h"
+#include "math/game_theory.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::math;

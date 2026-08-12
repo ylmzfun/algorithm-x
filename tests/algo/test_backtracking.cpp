@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/backtracking.h"
+#include "algo/backtracking.h"
 
 #include <algorithm>
 #include <numeric>

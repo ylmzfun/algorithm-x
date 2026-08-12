@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/min_cost_flow.h"
+#include "graph/min_cost_flow.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;
 namespace {

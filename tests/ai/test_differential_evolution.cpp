@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/differential_evolution.h"
+#include "ai/differential_evolution.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;
 namespace {

@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/map_reduce.h"
+#include "distributed/map_reduce.h"
 
 #include <map>
 #include <string>

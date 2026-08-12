@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/avl_tree.h"
+#include "ds/avl_tree.h"
 
 #include <gtest/gtest.h>
 #include <vector>

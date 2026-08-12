@@ -1,4 +1,4 @@
-#include "algorithm_x/math/fft.h"
+#include "math/fft.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::math;

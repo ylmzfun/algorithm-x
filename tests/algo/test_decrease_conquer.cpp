@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/decrease_conquer.h"
+#include "algo/decrease_conquer.h"
 
 #include <cstddef>
 #include <vector>

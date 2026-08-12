@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/fibonacci_heap.h"
+#include "ds/fibonacci_heap.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;
 namespace {

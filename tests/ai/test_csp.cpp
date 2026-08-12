@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/csp.h"
+#include "ai/csp.h"
 
 #include <utility>
 #include <vector>

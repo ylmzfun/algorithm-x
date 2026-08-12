@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/concurrent_hash_table.h"
+#include "concurrent/concurrent_hash_table.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::concurrent;
 namespace {

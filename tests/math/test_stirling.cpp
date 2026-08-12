@@ -1,4 +1,4 @@
-#include "algorithm_x/math/stirling.h"
+#include "math/stirling.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::math;
 namespace {

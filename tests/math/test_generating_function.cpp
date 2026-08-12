@@ -1,4 +1,4 @@
-#include "algorithm_x/math/generating_function.h"
+#include "math/generating_function.h"
 
 #include <cstdint>
 #include <vector>

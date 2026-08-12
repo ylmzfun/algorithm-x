@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/external_sort.h"
+#include "algo/external_sort.h"
 #include <fstream>
 #include "gtest/gtest.h"
 using namespace algorithm_x::algo;

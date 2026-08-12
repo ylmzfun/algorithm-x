@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/more_ai.h"
+#include "ai/more_ai.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;

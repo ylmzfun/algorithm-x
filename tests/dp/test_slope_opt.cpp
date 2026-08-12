@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/slope_opt.h"
+#include "dp/slope_opt.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::dp;
 namespace {

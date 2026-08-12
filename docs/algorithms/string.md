@@ -4,7 +4,7 @@
 Rabin-Karp）、多模式匹配（Aho-Corasick 自动机）、回文（Manacher）、循环移位最小表示（Booth）、
 编辑距离与最长公共子序列、后缀自动机（SAM）、后缀数组（含 LCP）。
 除 `AhoCorasick`、`SuffixAutomaton`、`SuffixArray` 为类外，其余均为 `inline` 自由函数；
-所有符号位于命名空间 `algorithm_x::string`，头文件统一以 `#include "algorithm_x/string/xxx.h"` 引入。
+所有符号位于命名空间 `algorithm_x::string`，头文件统一以 `#include "string/xxx.h"` 引入。
 
 ---
 
@@ -34,7 +34,7 @@ public:
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/aho_corasick.h"
+#include "string/aho_corasick.h"
 using namespace algorithm_x::string;
 
 AhoCorasick ac;
@@ -67,7 +67,7 @@ std::vector<std::size_t> boyer_moore_search(const std::string& text,
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/boyer_moore.h"
+#include "string/boyer_moore.h"
 using namespace algorithm_x::string;
 
 auto pos = boyer_moore_search("ababcabcabababd", "ababd");
@@ -97,7 +97,7 @@ inline std::string lcs_string(const std::string& a, const std::string& b); // LC
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/edit_distance.h"
+#include "string/edit_distance.h"
 using namespace algorithm_x::string;
 
 int d = edit_distance("kitten", "sitting");   // 3
@@ -127,7 +127,7 @@ std::string longest_palindrome(const std::string& s);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/manacher.h"
+#include "string/manacher.h"
 using namespace algorithm_x::string;
 
 std::string p = longest_palindrome("babad");   // "bab" 或 "aba"（首现为准）
@@ -156,7 +156,7 @@ std::string min_representation(const std::string& s);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/min_representation.h"
+#include "string/min_representation.h"
 using namespace algorithm_x::string;
 
 std::string r = min_representation("bcda");   // "abcd"（循环移位中的最小者）
@@ -188,7 +188,7 @@ public:
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/sam.h"
+#include "string/sam.h"
 using namespace algorithm_x::string;
 
 SuffixAutomaton sam;
@@ -221,7 +221,7 @@ std::vector<std::size_t> z_function(const std::string& s);   // z[i] = s[i:] 与
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/string_match.h"
+#include "string/string_match.h"
 using namespace algorithm_x::string;
 
 auto kmp = kmp_search("ababcabcabababd", "ababd");   // {9}
@@ -257,7 +257,7 @@ public:
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/string/suffix_array.h"
+#include "string/suffix_array.h"
 using namespace algorithm_x::string;
 
 SuffixArray sa("banana");

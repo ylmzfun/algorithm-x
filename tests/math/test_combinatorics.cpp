@@ -1,4 +1,4 @@
-#include "algorithm_x/math/combinatorics.h"
+#include "math/combinatorics.h"
 #include <cstdint>
 #include "gtest/gtest.h"
 using namespace algorithm_x::math;

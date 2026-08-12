@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/quadrangle.h"
+#include "dp/quadrangle.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::dp;
 namespace {

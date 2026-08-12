@@ -27,7 +27,7 @@ inline int tree_dp_max_independent_set(
 - 树上选点互不相邻的最大权 / 最大个数问题
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/advanced_dp.h"
+#include "dp/advanced_dp.h"
 using namespace algorithm_x::dp;
 int64_t s = digit_dp_sum(9);                       // 45
 std::vector<std::vector<std::size_t>> adj(4);
@@ -60,7 +60,7 @@ inline int burst_balloons(std::vector<int> nums);
 - 找零钱（最少硬币）与"最后取走"类区间模型（如 LeetCode 312）
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/common.h"
+#include "dp/common.h"
 using namespace algorithm_x::dp;
 int c = matrix_chain_order({10, 20, 30, 40, 30});   // 30000
 int k = coin_change_dp({1, 2, 5}, 11);              // 3
@@ -87,7 +87,7 @@ inline int64_t lis_count(const std::vector<int>& values);
 - 统计最长递增子序列的方案数
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/ds_opt_dp.h"
+#include "dp/ds_opt_dp.h"
 using namespace algorithm_x::dp;
 int64_t s = max_sum_increasing_subsequence({1, 2, 3, 4}, {1, 2, 3, 4});  // 10
 int64_t c = lis_count({2, 1, 3});   // 2：最长递增子序列 1-3 与 2-3
@@ -125,7 +125,7 @@ inline int knapsack_multiple(const std::vector<int>& weights,
 - 需要输出具体选品方案时使用带回溯版本
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/knapsack.h"
+#include "dp/knapsack.h"
 using namespace algorithm_x::dp;
 int v01 = knapsack_01({10, 20, 30}, {60, 100, 120}, 50);   // 220
 auto [val, items] = knapsack_01_with_items({10, 20, 30}, {60, 100, 120}, 50);
@@ -158,7 +158,7 @@ T max_subarray_sum(const std::vector<T>& arr);
 - 最大子段和（Kadane）
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/lis.h"
+#include "dp/lis.h"
 using namespace algorithm_x::dp;
 auto len = lis_length(std::vector<int>{10, 9, 2, 5, 3, 7, 101, 18});  // 4
 auto seq = lis_sequence(std::vector<int>{0, 1, 0, 3, 2, 3});          // {0, 1, 2, 3}
@@ -188,7 +188,7 @@ std::vector<T> sliding_window_min(const std::vector<T>& arr, std::size_t k);
 - 形如 dp[i] = 窗口内最值 + 常数的 DP 转移加速
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/optimization.h"
+#include "dp/optimization.h"
 using namespace algorithm_x::dp;
 auto mx = sliding_window_max(std::vector<int>{1, 3, -1, -3, 5, 3, 6, 7}, 3);
 // {3, 3, 5, 5, 6, 7}
@@ -211,7 +211,7 @@ inline int64_t domino_tilings(int rows, int cols);
 - 轮廓线状态压缩 DP 入门（滚动状态逐格转移）
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/plug_dp.h"
+#include "dp/plug_dp.h"
 using namespace algorithm_x::dp;
 int64_t t1 = domino_tilings(2, 3);   // 3
 int64_t t2 = domino_tilings(4, 4);   // 36
@@ -237,7 +237,7 @@ inline double random_walk_probability(int n, int pos);
 - 随机游走、赌徒破产类期望问题
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/probability_dp.h"
+#include "dp/probability_dp.h"
 using namespace algorithm_x::dp;
 double p1 = coin_toss_probability(2, 1);    // 0.5
 double p2 = coin_toss_probability(2, 2);    // 0.25
@@ -261,7 +261,7 @@ inline int optimal_bst(const std::vector<int>& freq);
 - 满足四边形不等式 / 决策单调性的区间 DP 优化
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/quadrangle.h"
+#include "dp/quadrangle.h"
 using namespace algorithm_x::dp;
 int cost = optimal_bst({34, 50});   // 最小期望检索代价 ≥ 84
 ```
@@ -295,7 +295,7 @@ public:
 - 平面直线族的最小值查询类几何问题
 **使用示例**：
 ```cpp
-#include "algorithm_x/dp/slope_opt.h"
+#include "dp/slope_opt.h"
 using namespace algorithm_x::dp;
 ConvexHullTrick<long long> cht;
 cht.add_line(1, 0);    // y = x

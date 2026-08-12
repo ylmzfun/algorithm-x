@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/johnson.h"
+#include "graph/johnson.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;

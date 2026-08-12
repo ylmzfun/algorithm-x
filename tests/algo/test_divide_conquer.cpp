@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/divide_conquer.h"
+#include "algo/divide_conquer.h"
 
 #include <functional>
 #include <vector>

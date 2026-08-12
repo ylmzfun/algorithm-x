@@ -1,4 +1,4 @@
-#include "algorithm_x/string/edit_distance.h"
+#include "string/edit_distance.h"
 
 #include <string>
 

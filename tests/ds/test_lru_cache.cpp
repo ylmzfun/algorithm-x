@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "algorithm_x/ds/lru_cache.h"
+#include "ds/lru_cache.h"
 
 using algorithm_x::ds::LRUCache;
 

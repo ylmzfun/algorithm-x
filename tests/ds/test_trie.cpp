@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/trie.h"
+#include "ds/trie.h"
 
 #include <gtest/gtest.h>
 

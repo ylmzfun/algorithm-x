@@ -1,5 +1,5 @@
-#include "algorithm_x/geom/half_plane.h"
-#include "algorithm_x/geom/point.h"
+#include "geom/half_plane.h"
+#include "geom/point.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::geom;
 namespace {

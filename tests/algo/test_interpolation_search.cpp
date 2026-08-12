@@ -1,4 +1,4 @@
-#include "algorithm_x/algo/interpolation_search.h"
+#include "algo/interpolation_search.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::algo;

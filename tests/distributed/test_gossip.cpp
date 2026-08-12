@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/gossip.h"
+#include "distributed/gossip.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::distributed;
 namespace {

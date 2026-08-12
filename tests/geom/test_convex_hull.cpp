@@ -1,4 +1,4 @@
-#include "algorithm_x/geom/convex_hull.h"
+#include "geom/convex_hull.h"
 
 #include <vector>
 

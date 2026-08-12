@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/dynamic_array.h"
+#include "ds/dynamic_array.h"
 
 #include <gtest/gtest.h>
 #include <stdexcept>

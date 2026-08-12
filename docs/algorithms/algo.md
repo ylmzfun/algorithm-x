@@ -3,7 +3,7 @@
 本文档覆盖 `include/algorithm_x/algo/` 下的 14 个头文件，按"算法设计范式 + 具体实现"组织：
 回溯、分支限界、减治、分治、贪心、随机化、近似算法、双指针/滑动窗口，以及一组可直接
 复用的基础工具（位运算、查找、排序、插值查找、桶排序/三分查找等）。
-所有函数位于命名空间 `algorithm_x::algo`，头文件统一以 `#include "algorithm_x/algo/xxx.h"` 引入，
+所有函数位于命名空间 `algorithm_x::algo`，头文件统一以 `#include "algo/xxx.h"` 引入，
 均为 header-only 实现（`inline` 或函数模板），无链接依赖。
 
 ---
@@ -33,7 +33,7 @@ int vertex_cover_approx(const std::vector<std::pair<int, int>>& edges,
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/approximation.h"
+#include "algo/approximation.h"
 using namespace algorithm_x::algo;
 
 std::vector<std::vector<std::size_t>> sets = {{0, 1, 2}, {1, 3, 4}, {2, 4}};
@@ -71,7 +71,7 @@ template <typename T> std::vector<std::vector<T>> combinations(const std::vector
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/backtracking.h"
+#include "algo/backtracking.h"
 using namespace algorithm_x::algo;
 
 auto board = solve_n_queens(8);                  // 8 皇后的一组解，无解返回 {}
@@ -111,7 +111,7 @@ template <typename Func> void enumerate_subsets(int n, Func f); // 枚举 {0..n-
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/bit.h"
+#include "algo/bit.h"
 using namespace algorithm_x::algo;
 
 int x = 0b1010;
@@ -145,7 +145,7 @@ int branch_and_bound_knapsack(const std::vector<int>& weights,
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/branch_and_bound.h"
+#include "algo/branch_and_bound.h"
 using namespace algorithm_x::algo;
 
 int best = branch_and_bound_knapsack({2, 3, 4, 5}, {3, 4, 5, 6}, 5);
@@ -176,7 +176,7 @@ int josephus(int n, int k);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/decrease_conquer.h"
+#include "algo/decrease_conquer.h"
 using namespace algorithm_x::algo;
 
 int kth = quickselect_kth({3, 1, 4, 1, 5, 9, 2, 6}, 4);  // 第 4 小（0 基）→ 5
@@ -208,7 +208,7 @@ It quickselect(It first, It last, std::size_t k, Cmp cmp = {});           // 第
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/divide_conquer.h"
+#include "algo/divide_conquer.h"
 using namespace algorithm_x::algo;
 
 int s1 = max_subarray_sum(std::vector<int>{-2, 1, -3, 4, -1, 2, 1, -5, 4});  // 6
@@ -240,7 +240,7 @@ void external_sort(const std::string& input_file,
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/external_sort.h"
+#include "algo/external_sort.h"
 using namespace algorithm_x::algo;
 
 // 输入文件每行一个整数；memory_size=2 会强制触发分块+归并路径
@@ -276,7 +276,7 @@ std::vector<int> coin_change_greedy(int amount, const std::vector<int>& coins);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/greedy.h"
+#include "algo/greedy.h"
 using namespace algorithm_x::algo;
 
 auto acts = activity_selection({1, 3, 0, 5}, {2, 4, 6, 7});   // 按结束时间选出的活动下标
@@ -308,7 +308,7 @@ It interpolation_search(It first, It last, const T& value);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/interpolation_search.h"
+#include "algo/interpolation_search.h"
 using namespace algorithm_x::algo;
 
 std::vector<int> v{1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
@@ -341,7 +341,7 @@ T ternary_search(T l, T r, F f, const T eps = T{0});
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/more_algo.h"
+#include "algo/more_algo.h"
 using namespace algorithm_x::algo;
 
 std::vector<int> v{5, 2, 8, 1, 3, 2, 9};
@@ -378,7 +378,7 @@ reservoir_sample(It first, It last, std::size_t k);
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/randomized.h"
+#include "algo/randomized.h"
 using namespace algorithm_x::algo;
 
 std::vector<int> v{1, 2, 3, 4, 5};
@@ -416,7 +416,7 @@ It upper_bound(It first, It last, const T& value, Cmp cmp = {});
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/search.h"
+#include "algo/search.h"
 using namespace algorithm_x::algo;
 
 std::vector<int> v{1, 3, 3, 5, 7, 9};
@@ -459,7 +459,7 @@ template <typename It> void radix_sort(It first, It last);      // 仅非负整�
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/sort.h"
+#include "algo/sort.h"
 using namespace algorithm_x::algo;
 
 std::vector<int> a{5, 2, 8, 1, 3}, b{5, 2, 8, 1, 3}, c{5, 2, 8, 1, 3};
@@ -506,7 +506,7 @@ template <typename T> class DifferenceArray {    // O(1) 区间加、O(n) 还原
 
 **使用示例**：
 ```cpp
-#include "algorithm_x/algo/two_pointers.h"
+#include "algo/two_pointers.h"
 using namespace algorithm_x::algo;
 
 auto pr = two_sum_sorted(std::vector<int>{1, 2, 4, 7, 11}, 9);      // {1, 4}：arr[1]+arr[4]

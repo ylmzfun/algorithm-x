@@ -1,0 +1,21 @@
+# clang-tidy 检查配置。
+# 运行方式（任一）：
+#   clang-tidy <file> -- -std=c++20 -Iinclude
+#   run-clang-tidy（配合 compile_commands.json）
+Checks: >
+  bugprone-*,
+  performance-*,
+  modernize-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-implicit-widening-of-multiplication-result,
+  -modernize-use-trailing-return-type,
+  -modernize-use-auto,
+  -modernize-return-braced-init-list,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-else-after-return,
+  -readability-function-cognitive-complexity
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+FormatStyle: file

@@ -1,4 +1,4 @@
-#include "algorithm_x/string/boyer_moore.h"
+#include "string/boyer_moore.h"
 #include <string>
 #include <vector>
 #include "gtest/gtest.h"

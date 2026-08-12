@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/knapsack.h"
+#include "dp/knapsack.h"
 
 #include <numeric>
 #include <vector>

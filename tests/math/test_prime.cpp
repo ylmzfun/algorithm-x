@@ -1,4 +1,4 @@
-#include "algorithm_x/math/prime.h"
+#include "math/prime.h"
 
 #include <algorithm>
 #include <cstddef>

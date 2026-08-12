@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/probability_dp.h"
+#include "dp/probability_dp.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::dp;
 namespace {

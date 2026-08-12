@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/inversions.h"
+#include "advanced/inversions.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::advanced;

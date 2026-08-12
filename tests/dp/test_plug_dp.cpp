@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/plug_dp.h"
+#include "dp/plug_dp.h"
 
 #include <cstdint>
 

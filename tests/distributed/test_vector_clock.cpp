@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/vector_clock.h"
+#include "distributed/vector_clock.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::distributed;
 namespace {

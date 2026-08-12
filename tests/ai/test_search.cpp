@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/search.h"
+#include "ai/search.h"
 
 #include <algorithm>
 #include <cmath>

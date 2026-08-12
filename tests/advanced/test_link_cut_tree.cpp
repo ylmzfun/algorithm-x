@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/link_cut_tree.h"
+#include "advanced/link_cut_tree.h"
 
 #include <vector>
 

@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/crdt.h"
+#include "distributed/crdt.h"
 
 #include <cstdint>
 #include <string>

@@ -1,4 +1,4 @@
-#include "algorithm_x/geom/sweep_line.h"
+#include "geom/sweep_line.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::geom;

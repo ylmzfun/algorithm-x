@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/mdp.h"
+#include "ai/mdp.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;
 namespace {

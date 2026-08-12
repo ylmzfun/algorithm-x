@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/rmq_lca.h"
+#include "advanced/rmq_lca.h"
 
 #include <vector>
 

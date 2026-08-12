@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "algorithm_x/ds/priority_queue.h"
+#include "ds/priority_queue.h"
 
 using algorithm_x::ds::PriorityQueue;
 

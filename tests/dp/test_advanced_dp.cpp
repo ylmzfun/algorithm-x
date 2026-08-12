@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/advanced_dp.h"
+#include "dp/advanced_dp.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::dp;

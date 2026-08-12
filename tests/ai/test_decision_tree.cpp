@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/decision_tree.h"
+#include "ai/decision_tree.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;

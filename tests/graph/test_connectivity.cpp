@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/connectivity.h"
+#include "graph/connectivity.h"
 
 #include <algorithm>
 #include <vector>

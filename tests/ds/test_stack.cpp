@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
-#include "algorithm_x/ds/stack.h"
+#include "ds/stack.h"
 
 using namespace algorithm_x::ds;
 

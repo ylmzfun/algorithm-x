@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/biconnected.h"
+#include "graph/biconnected.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;

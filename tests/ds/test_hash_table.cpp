@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "algorithm_x/ds/hash_table.h"
+#include "ds/hash_table.h"
 
 using algorithm_x::ds::HashTable;
 

@@ -236,7 +236,7 @@ static_assert(factorial(5) == 120);
 ### 分支预测
 
 ```cpp
-#include "algorithm_x/perf/cache.h"
+#include "perf/cache.h"
 if (UNLIKELY(err != 0)) { handle_error(); }   // 冷路径标记
 ```
 

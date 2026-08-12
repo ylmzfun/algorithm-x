@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/tree_in_tree.h"
+#include "advanced/tree_in_tree.h"
 
 #include <cstdint>
 #include <vector>

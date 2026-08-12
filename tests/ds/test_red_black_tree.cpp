@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/red_black_tree.h"
+#include "ds/red_black_tree.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;

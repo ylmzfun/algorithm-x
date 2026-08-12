@@ -1,4 +1,10 @@
-add_executable(test_ds
+# 单元测试：每个模块一个套件。
+# algorithm_x_add_test_suite 由 cmake/AlgorithmX.cmake 提供，
+# 自动处理链接、警告与 CTest 注册（gtest_discover_tests，粒度到单个 TEST）。
+
+find_package(GTest REQUIRED)  # 由 vcpkg 提供
+
+algorithm_x_add_test_suite(test_ds
     ds/test_dynamic_array.cpp
     ds/test_linked_list.cpp
     ds/test_stack.cpp
@@ -24,10 +30,8 @@ add_executable(test_ds
     ds/test_adjacency_matrix.cpp
     ds/test_forward_star.cpp
 )
-target_link_libraries(test_ds PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME ds COMMAND test_ds)
 
-add_executable(test_algo
+algorithm_x_add_test_suite(test_algo
     algo/test_sort.cpp
     algo/test_search.cpp
     algo/test_two_pointers.cpp
@@ -43,10 +47,8 @@ add_executable(test_algo
     algo/test_decrease_conquer.cpp
     algo/test_approximation.cpp
 )
-target_link_libraries(test_algo PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME algo COMMAND test_algo)
 
-add_executable(test_graph
+algorithm_x_add_test_suite(test_graph
     graph/test_shortest_path.cpp
     graph/test_mst.cpp
     graph/test_connectivity.cpp
@@ -62,10 +64,8 @@ add_executable(test_graph
     graph/test_min_cost_flow.cpp
     graph/test_km.cpp
 )
-target_link_libraries(test_graph PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME graph COMMAND test_graph)
 
-add_executable(test_string
+algorithm_x_add_test_suite(test_string
     string/test_string_match.cpp
     string/test_manacher.cpp
     string/test_aho_corasick.cpp
@@ -75,10 +75,8 @@ add_executable(test_string
     string/test_sam.cpp
     string/test_min_representation.cpp
 )
-target_link_libraries(test_string PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME string COMMAND test_string)
 
-add_executable(test_math
+algorithm_x_add_test_suite(test_math
     math/test_prime.cpp
     math/test_modint.cpp
     math/test_matrix.cpp
@@ -91,20 +89,16 @@ add_executable(test_math
     math/test_probability.cpp
     math/test_generating_function.cpp
 )
-target_link_libraries(test_math PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME math COMMAND test_math)
 
-add_executable(test_geom
+algorithm_x_add_test_suite(test_geom
     geom/test_point.cpp
     geom/test_convex_hull.cpp
     geom/test_intersection.cpp
     geom/test_sweep_line.cpp
     geom/test_half_plane.cpp
 )
-target_link_libraries(test_geom PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME geom COMMAND test_geom)
 
-add_executable(test_dp
+algorithm_x_add_test_suite(test_dp
     dp/test_knapsack.cpp
     dp/test_lis.cpp
     dp/test_common.cpp
@@ -116,10 +110,8 @@ add_executable(test_dp
     dp/test_plug_dp.cpp
     dp/test_ds_opt_dp.cpp
 )
-target_link_libraries(test_dp PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME dp COMMAND test_dp)
 
-add_executable(test_ai
+algorithm_x_add_test_suite(test_ai
     ai/test_search.cpp
     ai/test_evolution.cpp
     ai/test_ml.cpp
@@ -133,10 +125,8 @@ add_executable(test_ai
     ai/test_differential_evolution.cpp
     ai/test_csp.cpp
 )
-target_link_libraries(test_ai PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME ai COMMAND test_ai)
 
-add_executable(test_concurrent
+algorithm_x_add_test_suite(test_concurrent
     concurrent/test_thread_pool.cpp
     concurrent/test_lock_free_queue.cpp
     concurrent/test_sync.cpp
@@ -145,10 +135,8 @@ add_executable(test_concurrent
     concurrent/test_concurrent_hash_table.cpp
     concurrent/test_rcu.cpp
 )
-target_link_libraries(test_concurrent PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME concurrent COMMAND test_concurrent)
 
-add_executable(test_distributed
+algorithm_x_add_test_suite(test_distributed
     distributed/test_consistent_hash.cpp
     distributed/test_distributed_lock.cpp
     distributed/test_gossip.cpp
@@ -158,10 +146,8 @@ add_executable(test_distributed
     distributed/test_map_reduce.cpp
     distributed/test_crdt.cpp
 )
-target_link_libraries(test_distributed PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME distributed COMMAND test_distributed)
 
-add_executable(test_advanced
+algorithm_x_add_test_suite(test_advanced
     advanced/test_rmq_lca.cpp
     advanced/test_mo_algorithm.cpp
     advanced/test_persistent.cpp
@@ -173,13 +159,9 @@ add_executable(test_advanced
     advanced/test_complexity.cpp
     advanced/test_online_algorithm.cpp
 )
-target_link_libraries(test_advanced PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME advanced COMMAND test_advanced)
 
-add_executable(test_perf
+algorithm_x_add_test_suite(test_perf
     perf/test_cache.cpp
     perf/test_memory_pool.cpp
     perf/test_concepts.cpp
 )
-target_link_libraries(test_perf PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
-add_test(NAME perf COMMAND test_perf)

@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/fenwick_tree.h"
+#include "ds/fenwick_tree.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;

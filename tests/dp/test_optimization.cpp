@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/optimization.h"
+#include "dp/optimization.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::dp;

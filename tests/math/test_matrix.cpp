@@ -1,4 +1,4 @@
-#include "algorithm_x/math/matrix.h"
+#include "math/matrix.h"
 
 #include <cstdint>
 #include <vector>

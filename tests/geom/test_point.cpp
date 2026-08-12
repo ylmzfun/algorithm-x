@@ -1,4 +1,4 @@
-#include "algorithm_x/geom/point.h"
+#include "geom/point.h"
 
 #include <vector>
 

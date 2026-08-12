@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/binary_heap.h"
+#include "ds/binary_heap.h"
 
 #include <algorithm>
 #include <gtest/gtest.h>

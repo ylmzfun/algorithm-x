@@ -1,4 +1,4 @@
-#include "algorithm_x/distributed/two_phase_commit.h"
+#include "distributed/two_phase_commit.h"
 
 #include "gtest/gtest.h"
 

@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/kosaraju.h"
+#include "graph/kosaraju.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::graph;

@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/union_find.h"
+#include "ds/union_find.h"
 
 #include <gtest/gtest.h>
 

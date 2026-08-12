@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/linked_list.h"
+#include "ds/linked_list.h"
 
 #include <gtest/gtest.h>
 #include <stdexcept>

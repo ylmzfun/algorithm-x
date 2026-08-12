@@ -29,7 +29,7 @@ inline std::vector<int> min_conflicts_n_queens(int n, int max_steps = 1000);
 - 作为 CSP 理论（弧一致性 vs 完全一致性）的学习示例。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/csp.h"
+#include "ai/csp.h"
 using namespace algorithm_x::ai;
 
 std::size_t s = count_n_queens_forward_checking(8);          // 92
@@ -62,7 +62,7 @@ public:
 - 作为集成方法（随机森林/GBDT）的对照基准。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/decision_tree.h"
+#include "ai/decision_tree.h"
 using namespace algorithm_x::ai;
 
 DecisionTree dt(3);                                        // 最大深度 3
@@ -94,7 +94,7 @@ inline std::vector<double> differential_evolution(
 - 与遗传算法、粒子群对比不同进化策略的收敛行为。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/differential_evolution.h"
+#include "ai/differential_evolution.h"
 using namespace algorithm_x::ai;
 
 auto f = [](const std::vector<double>& x) { return x[0] * x[0]; };
@@ -135,7 +135,7 @@ inline std::vector<double> particle_swarm(
 - 算法参数（种群规模、变异率、迭代数）敏感性实验。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/evolution.h"
+#include "ai/evolution.h"
 using namespace algorithm_x::ai;
 
 // GA：求 -(x-5)^2+10 的最大值 → x≈5
@@ -177,7 +177,7 @@ inline std::pair<std::vector<double>, std::vector<int>> policy_iteration(
 - 作为后续无模型强化学习（Q-Learning/SARSA）的理论对照。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/mdp.h"
+#include "ai/mdp.h"
 using namespace algorithm_x::ai;
 
 // 2 状态 2 动作：状态 1 自循环奖励 10 ⇒ V[1] = 10/(1-0.9) = 100
@@ -213,7 +213,7 @@ inline int alphabeta(std::vector<int>& board, int depth, int alpha, int beta,
 - 扩展到其他小棋盘博弈的评估函数设计练习。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/minimax.h"
+#include "ai/minimax.h"
 using namespace algorithm_x::ai;
 
 std::vector<int> board(9, 0);  // 空棋盘
@@ -256,7 +256,7 @@ kmeans(const std::vector<std::vector<double>>& data, int k,
 - 对比判别模型（逻辑回归）与实例模型（KNN）的决策边界。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/ml.h"
+#include "ai/ml.h"
 using namespace algorithm_x::ai;
 
 // KNN
@@ -303,7 +303,7 @@ public:
 - 手工实现反向传播理解神经网络训练（如测试中的 XOR 问题）。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/more_ai.h"
+#include "ai/more_ai.h"
 using namespace algorithm_x::ai;
 
 auto tour = aco_tsp({{0,10,15},{10,0,20},{15,20,0}}, 20, 100);   // 3 城 TSP
@@ -337,7 +337,7 @@ public:
 - 需要可解释、训练极快的基线分类器。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/naive_bayes.h"
+#include "ai/naive_bayes.h"
 using namespace algorithm_x::ai;
 
 NaiveBayes nb;
@@ -372,7 +372,7 @@ public:
 - 作为比较 SARSA（在策略）与 Q-Learning 差异的基础。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/rl.h"
+#include "ai/rl.h"
 using namespace algorithm_x::ai;
 
 QLearning agent({{0,0,0},{0,0,0},{0,0,2}}, 0.1, 0.9, 0.1);  // 3x3 网格，右下角为目标
@@ -404,7 +404,7 @@ public:
 - 简单机器人导航教学。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/rl_advanced.h"
+#include "ai/rl_advanced.h"
 using namespace algorithm_x::ai;
 
 SARSA agent({{0,0},{0,2}}, 0.1, 0.9, 0.1);   // 2x2 网格，右下角为目标
@@ -443,7 +443,7 @@ inline double simulated_annealing(std::function<double(double)> f,
 - 一维连续函数全局寻优的退火演示（对比爬山法的局部最优问题）。
 **使用示例**：
 ```cpp
-#include "algorithm_x/ai/search.h"
+#include "ai/search.h"
 using namespace algorithm_x::ai;
 
 auto path = astar({{0,0,0},{0,1,0},{0,0,0}}, {0,0}, {2,2});  // 绕过中心障碍

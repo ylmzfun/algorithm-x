@@ -1,4 +1,4 @@
-#include "algorithm_x/ai/minimax.h"
+#include "ai/minimax.h"
 #include <vector>
 #include "gtest/gtest.h"
 using namespace algorithm_x::ai;

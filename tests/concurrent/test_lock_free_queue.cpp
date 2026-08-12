@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/lock_free_queue.h"
+#include "concurrent/lock_free_queue.h"
 
 #include <thread>
 #include <vector>

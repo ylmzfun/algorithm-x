@@ -1,4 +1,4 @@
-#include "algorithm_x/ds/skip_list.h"
+#include "ds/skip_list.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::ds;
 namespace {

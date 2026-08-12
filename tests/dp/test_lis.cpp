@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/lis.h"
+#include "dp/lis.h"
 
 #include <algorithm>
 #include <vector>

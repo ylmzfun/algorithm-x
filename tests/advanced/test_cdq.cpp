@@ -1,4 +1,4 @@
-#include "algorithm_x/advanced/cdq.h"
+#include "advanced/cdq.h"
 #include "gtest/gtest.h"
 using namespace algorithm_x::advanced;
 namespace {

@@ -1,4 +1,4 @@
-#include "algorithm_x/concurrent/lock_free_stack.h"
+#include "concurrent/lock_free_stack.h"
 #include <thread>
 #include <vector>
 #include "gtest/gtest.h"

@@ -1,4 +1,4 @@
-#include "algorithm_x/dp/ds_opt_dp.h"
+#include "dp/ds_opt_dp.h"
 
 #include <cstdint>
 #include <vector>

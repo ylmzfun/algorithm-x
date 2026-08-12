@@ -1,4 +1,4 @@
-#include "algorithm_x/graph/mst.h"
+#include "graph/mst.h"
 
 #include <vector>
 
