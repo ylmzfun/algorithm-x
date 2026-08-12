@@ -25,7 +25,8 @@ endif()
 # Common compile options
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-# Google Test (system install via Homebrew)
+# 依赖库由 vcpkg 提供（gtest / fmt / spdlog / nlohmann-json / eigen3）。
+# 配置时需指定 -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
 find_package(GTest REQUIRED)
 
 enable_testing()
