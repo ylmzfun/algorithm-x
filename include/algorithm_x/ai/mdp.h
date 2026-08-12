@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <limits>
+#include <tuple>
 #include <vector>
 
 namespace algorithm_x {

@@ -11,7 +11,11 @@ namespace distributed {
 // 简易分布式锁（Lamport 风格模拟）— 单机多线程模拟。
 class DistributedLock {
 public:
-    explicit DistributedLock(std::size_t num_nodes) : locked_(num_nodes, false) {}
+    explicit DistributedLock(std::size_t num_nodes) : locked_(num_nodes) {
+        for (auto& flag : locked_) {
+            flag.store(false);
+        }
+    }
 
     // 尝试获取锁。
     bool acquire(std::size_t node_id) {

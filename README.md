@@ -94,9 +94,9 @@ ctest --output-on-failure
 - [x] 一致性哈希
 
 ### 图存储
-- [ ] 邻接矩阵
+- [x] 邻接矩阵
 - [x] 邻接表
-- [ ] 链式前向星
+- [x] 链式前向星
 
 ---
 
@@ -134,10 +134,10 @@ ctest --output-on-failure
 - [x] 分治法（Divide and Conquer）
 - [x] 贪心算法（Greedy）
 - [x] 回溯法（Backtracking）
-- [ ] 分支限界（Branch and Bound）
-- [ ] 减治法（Decrease and Conquer）
+- [x] 分支限界（Branch and Bound）
+- [x] 减治法（Decrease and Conquer）
 - [x] 随机化算法（Randomized Algorithms）
-- [ ] 近似算法
+- [x] 近似算法
 
 ---
 
@@ -207,10 +207,10 @@ ctest --output-on-failure
 
 ### 组合数学
 - [x] 排列组合
-- [ ] 容斥原理
-- [ ] 鸽巢原理
+- [x] 容斥原理
+- [x] 鸽巢原理
 - [x] 卡特兰数（Catalan Number）
-- [ ] 斯特林数、贝尔数
+- [x] 斯特林数、贝尔数
 
 ### 线性代数
 - [x] 矩阵乘法
@@ -221,9 +221,9 @@ ctest --output-on-failure
 ### 其他数学
 - [x] 快速幂 / 龟速乘
 - [x] 博弈论（SG 函数、Nim 游戏）
-- [ ] 概率与期望
+- [x] 概率与期望
 - [x] 快速傅里叶变换（FFT / NTT）
-- [ ] 母函数（生成函数）
+- [x] 母函数（生成函数）
 
 ---
 
@@ -251,14 +251,14 @@ ctest --output-on-failure
 - [x] 数位 DP
 - [x] 状态压缩 DP
 - [x] 概率 DP
-- [ ] 插头 DP（轮廓线 DP）
+- [x] 插头 DP（轮廓线 DP）
 
 ### DP 优化
 - [x] 单调队列优化
-- [ ] 斜率优化
+- [x] 斜率优化
 - [x] 四边形不等式优化
 - [x] 矩阵快速幂优化（倍增 DP）
-- [ ] 数据结构优化（线段树 / 树状数组上 DP）
+- [x] 数据结构优化（线段树 / 树状数组上 DP）
 
 ---
 
@@ -273,9 +273,9 @@ ctest --output-on-failure
 - [x] 博弈搜索：Minimax、Alpha-Beta 剪枝、蒙特卡洛树搜索（MCTS）
 
 ### 约束满足问题（CSP）
-- [ ] 回溯搜索 + 约束传播
-- [ ] AC-3 算法
-- [ ] 最小冲突启发式
+- [x] 回溯搜索 + 约束传播
+- [x] AC-3 算法
+- [x] 最小冲突启发式
 
 ### 进化与元启发式算法
 - [x] 遗传算法（GA）
@@ -338,34 +338,34 @@ ctest --output-on-failure
 ### 同步模式
 - [x] 信号量（Semaphore）
 - [x] 屏障（Barrier / Latch）
-- [ ] Read-Copy-Update（RCU）
+- [x] Read-Copy-Update（RCU）
 - [x] CAS（Compare-And-Swap）编程
 
 ---
 
 ## 11. 分布式算法
 
-- [ ] 共识算法：Paxos / Raft
-- [ ] 分布式一致性：两阶段提交（2PC）
+- [x] 共识算法：Paxos / Raft
+- [x] 分布式一致性：两阶段提交（2PC）
 - [x] 一致性哈希
 - [x] Gossip 协议
-- [ ] MapReduce 模型
-- [ ] 分布式锁
+- [x] MapReduce 模型
+- [x] 分布式锁
 - [x] 向量时钟（Vector Clock）
-- [ ] CRDT（无冲突复制数据类型）
+- [x] CRDT（无冲突复制数据类型）
 
 ---
 
 ## 12. 进阶专题
 
-- [ ] 计算理论：P / NP / NP 完全 / NP 困难
-- [ ] 在线算法与竞争分析
+- [x] 计算理论：P / NP / NP 完全 / NP 困难
+- [x] 在线算法与竞争分析
 - [x] 摊还分析
 - [x] 莫队算法（Mo's Algorithm）
 - [x] CDQ 分治
-- [ ] LCT（Link-Cut Tree）
+- [x] LCT（Link-Cut Tree）
 - [x] 主席树（可持久化线段树）
-- [ ] 树套树与分块
+- [x] 树套树与分块
 - [x] 稀疏表（Sparse Table / RMQ）
 - [x] LCA（最近公共祖先）—— 倍增 / Tarjan / 欧拉序 + ST 表
 - [x] 逆序对、偏序问题
@@ -374,28 +374,31 @@ ctest --output-on-failure
 
 ## 13. C/C++ 工程与性能
 
+> 编译选项、CMake 多目标、PCH/Unity Build、内存检测、性能分析的完整命令与
+> 配置示例见 [docs/compile-and-perf.md](docs/compile-and-perf.md)。
+
 ### 编译与构建
-- [ ] GCC / Clang 编译选项与优化级别（-O2 / -O3 / -march=native）
-- [ ] CMake 多目标构建、静态/动态库管理
-- [ ] 预编译头（PCH）与 Unity Build
+- [x] GCC / Clang 编译选项与优化级别（-O2 / -O3 / -march=native）
+- [x] CMake 多目标构建、静态/动态库管理
+- [x] 预编译头（PCH）与 Unity Build
 - [x] Address / Undefined / Thread Sanitizer
 
 ### 内存管理
 - [x] RAII 与智能指针（`unique_ptr` / `shared_ptr`）
 - [x] 自定义 Allocator（内存池 / 对象池 / slab）
 - [x] 内存对齐与缓存行（cache line）优化
-- [ ] Valgrind / AddressSanitizer 内存检测
+- [x] Valgrind / AddressSanitizer 内存检测
 
 ### 性能优化
-- [ ] 性能分析：perf / gprof /火焰图
+- [x] 性能分析：perf / gprof /火焰图
 - [x] SIMD 向量化（SSE / AVX 内联汇编 + intrinsics）
 - [x] 缓存友好数据结构（AoS vs SoA）
 - [x] 分支预测优化（`likely` / `unlikely`）
-- [ ] 编译器优化技巧（内联、循环展开、常量折叠）
+- [x] 编译器优化技巧（内联、循环展开、常量折叠）
 
 ### 模板与泛型
 - [x] 模板元编程（TMP）基础
-- [ ] SFINAE 与 `concepts`（C++20）
+- [x] SFINAE 与 `concepts`（C++20）
 - [x] `constexpr` 编译期计算
 - [x] 类型萃取（type traits）
 
@@ -421,36 +424,36 @@ ctest --output-on-failure
 
 ## 实现进度
 
-| #        | 模块                | 目录           | 头文件        | 测试          | 状态 |
-| -------- | ------------------- | -------------- | ------------- | ------------- | ---- |
-| 1        | 数据结构            | `ds/`          | 18            | 168           | ✅    |
-| 2-3      | 基础算法 + 设计范式 | `algo/`        | 8             | 177           | ✅    |
-| 4        | 图论                | `graph/`       | 4             | 43            | ✅    |
-| 5        | 字符串              | `string/`      | 4             | 49            | ✅    |
-| 6        | 数学数论            | `math/`        | 3             | 37            | ✅    |
-| 7        | 计算几何            | `geom/`        | 4             | 39            | ✅    |
-| 8        | 动态规划            | `dp/`          | 3             | 38            | ✅    |
-| 9        | AI / ML             | `ai/`          | 3             | 18            | ✅    |
-| 10       | 并发                | `concurrent/`  | 2             | 14            | ✅    |
-| 11       | 分布式              | `distributed/` | 1             | 6             | ✅    |
-| 12       | 进阶专题            | `advanced/`    | 1             | 9             | ✅    |
-| 13       | C++ 工程            | `perf/`        | 1             | 5             | ✅    |
-| **合计** |                     | **12 模块**    | **47 头文件** | **601 tests** |      |
+| #        | 模块                | 目录           | 头文件         | 测试          | 状态 |
+| -------- | ------------------- | -------------- | -------------- | ------------- | ---- |
+| 1        | 数据结构            | `ds/`          | 24             | 206           | ✅    |
+| 2-3      | 基础算法 + 设计范式 | `algo/`        | 14             | 205           | ✅    |
+| 4        | 图论                | `graph/`       | 14             | 60            | ✅    |
+| 5        | 字符串              | `string/`      | 8              | 61            | ✅    |
+| 6        | 数学数论            | `math/`        | 11             | 62            | ✅    |
+| 7        | 计算几何            | `geom/`        | 5              | 43            | ✅    |
+| 8        | 动态规划            | `dp/`          | 10             | 55            | ✅    |
+| 9        | AI / ML             | `ai/`          | 12             | 37            | ✅    |
+| 10       | 并发                | `concurrent/`  | 7              | 23            | ✅    |
+| 11       | 分布式              | `distributed/` | 8              | 26            | ✅    |
+| 12       | 进阶专题            | `advanced/`    | 10             | 29            | ✅    |
+| 13       | C++ 工程            | `perf/`        | 3              | 16            | ✅    |
+| **合计** |                     | **12 模块**    | **126 头文件** | **823 tests** |      |
 
 ```
 include/algorithm_x/
-├── ds/          (22) 数据结构
-├── algo/        (10) 基础算法
-├── graph/       (12) 图论
+├── ds/          (24) 数据结构
+├── algo/        (14) 基础算法
+├── graph/       (14) 图论
 ├── string/      (8)  字符串
-├── math/        (7)  数学
-├── geom/        (4)  计算几何
-├── dp/          (5)  动态规划
-├── ai/          (8)  AI/ML
-├── concurrent/  (5)  并发
-├── distributed/ (1)  分布式
-├── advanced/    (4)  进阶
-└── perf/        (1)  C++ 工程
+├── math/        (11) 数学
+├── geom/        (5)  计算几何
+├── dp/          (10) 动态规划
+├── ai/          (12) AI/ML
+├── concurrent/  (7)  并发
+├── distributed/ (8)  分布式
+├── advanced/    (10) 进阶
+└── perf/        (3)  C++ 工程
 ```
 
 > 持续更新中。每个章节的详细笔记和 C/C++ 代码实现位于对应子目录。

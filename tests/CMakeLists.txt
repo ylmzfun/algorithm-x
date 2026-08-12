@@ -21,6 +21,8 @@ add_executable(test_ds
     ds/test_red_black_tree.cpp
     ds/test_fibonacci_heap.cpp
     ds/test_lfu_cache.cpp
+    ds/test_adjacency_matrix.cpp
+    ds/test_forward_star.cpp
 )
 target_link_libraries(test_ds PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME ds COMMAND test_ds)
@@ -37,6 +39,9 @@ add_executable(test_algo
     algo/test_more_algo.cpp
     algo/test_external_sort.cpp
     algo/test_interpolation_search.cpp
+    algo/test_branch_and_bound.cpp
+    algo/test_decrease_conquer.cpp
+    algo/test_approximation.cpp
 )
 target_link_libraries(test_algo PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME algo COMMAND test_algo)
@@ -81,6 +86,10 @@ add_executable(test_math
     math/test_fft.cpp
     math/test_combinatorics.cpp
     math/test_linear_algebra.cpp
+    math/test_principles.cpp
+    math/test_stirling.cpp
+    math/test_probability.cpp
+    math/test_generating_function.cpp
 )
 target_link_libraries(test_math PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME math COMMAND test_math)
@@ -90,7 +99,7 @@ add_executable(test_geom
     geom/test_convex_hull.cpp
     geom/test_intersection.cpp
     geom/test_sweep_line.cpp
-    
+    geom/test_half_plane.cpp
 )
 target_link_libraries(test_geom PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME geom COMMAND test_geom)
@@ -103,6 +112,9 @@ add_executable(test_dp
     dp/test_optimization.cpp
     dp/test_probability_dp.cpp
     dp/test_quadrangle.cpp
+    dp/test_slope_opt.cpp
+    dp/test_plug_dp.cpp
+    dp/test_ds_opt_dp.cpp
 )
 target_link_libraries(test_dp PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME dp COMMAND test_dp)
@@ -116,6 +128,10 @@ add_executable(test_ai
     ai/test_naive_bayes.cpp
     ai/test_decision_tree.cpp
     ai/test_minimax.cpp
+    ai/test_mdp.cpp
+    ai/test_rl_advanced.cpp
+    ai/test_differential_evolution.cpp
+    ai/test_csp.cpp
 )
 target_link_libraries(test_ai PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME ai COMMAND test_ai)
@@ -127,13 +143,20 @@ add_executable(test_concurrent
     concurrent/test_lock_free_stack.cpp
     concurrent/test_dining.cpp
     concurrent/test_concurrent_hash_table.cpp
+    concurrent/test_rcu.cpp
 )
 target_link_libraries(test_concurrent PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME concurrent COMMAND test_concurrent)
 
 add_executable(test_distributed
     distributed/test_consistent_hash.cpp
-    
+    distributed/test_distributed_lock.cpp
+    distributed/test_gossip.cpp
+    distributed/test_vector_clock.cpp
+    distributed/test_consensus.cpp
+    distributed/test_two_phase_commit.cpp
+    distributed/test_map_reduce.cpp
+    distributed/test_crdt.cpp
 )
 target_link_libraries(test_distributed PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME distributed COMMAND test_distributed)
@@ -145,6 +168,10 @@ add_executable(test_advanced
     advanced/test_inversions.cpp
     advanced/test_cdq.cpp
     advanced/test_amortized.cpp
+    advanced/test_link_cut_tree.cpp
+    advanced/test_tree_in_tree.cpp
+    advanced/test_complexity.cpp
+    advanced/test_online_algorithm.cpp
 )
 target_link_libraries(test_advanced PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME advanced COMMAND test_advanced)
@@ -152,6 +179,7 @@ add_test(NAME advanced COMMAND test_advanced)
 add_executable(test_perf
     perf/test_cache.cpp
     perf/test_memory_pool.cpp
+    perf/test_concepts.cpp
 )
 target_link_libraries(test_perf PRIVATE algorithm_x GTest::gtest GTest::gtest_main)
 add_test(NAME perf COMMAND test_perf)

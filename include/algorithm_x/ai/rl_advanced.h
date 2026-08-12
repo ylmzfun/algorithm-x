@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <map>
 #include <random>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -60,7 +61,7 @@ public:
     std::vector<std::pair<int, int>> get_path(int start_r, int start_c) const {
         std::vector<std::pair<int, int>> path;
         int r = start_r, c = start_c;
-        for (int step = 0; step < rows_ * cols_ * 2; ++step) {
+        for (int path_step = 0; path_step < rows_ * cols_ * 2; ++path_step) {
             path.emplace_back(r, c);
             if (r == goal_r_ && c == goal_c_) break;
             double best = -1e9;

@@ -10,7 +10,7 @@ namespace dp {
 
 // Convex Hull Trick (CHT) for DP optimization.
 // Supports adding lines y = mx + b and querying minimum value at x.
-// Assumes slopes are added in increasing order (monotonic).
+// Assumes slopes are added in decreasing order (monotonic).
 // For maximum queries, negate slopes and intercepts.
 template <typename T>
 class ConvexHullTrick {
@@ -24,7 +24,7 @@ class ConvexHullTrick {
     };
 
 public:
-    // Add line y = mx + b. Slopes must be added in increasing order.
+    // Add line y = mx + b. Slopes must be added in decreasing order.
     void add_line(T m, T b) {
         Line line{m, b};
         while (hull_.size() >= 2) {

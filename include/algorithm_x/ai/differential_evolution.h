@@ -33,7 +33,7 @@ inline std::vector<double> differential_evolution(
         scores[i] = f(pop[i]);
     }
 
-    for (std::size_t gen = 0; gen < generations; ++gen) {
+    for (std::size_t g = 0; g < generations; ++g) {
         for (std::size_t i = 0; i < pop_size; ++i) {
             // 选三个不同的随机个体
             std::uniform_int_distribution<std::size_t> idx(0, pop_size - 1);
